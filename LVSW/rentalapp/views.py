@@ -1,3 +1,4 @@
 from django.shortcuts import render
 
-# Create your views here.
+def rentalindex(request):
+    return render(request, 'rentalapp/rentalindex.html')

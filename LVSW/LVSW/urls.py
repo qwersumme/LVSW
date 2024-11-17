@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('rentalapp/', include('rentalapp.urls')),
     path('eventmanagerapp/', include('eventmanagerapp.urls')),
+    path('devicemanagerapp/', include('devicemanagerapp.urls')),
     path('', views.index),
 
 ]

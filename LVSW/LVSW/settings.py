@@ -93,10 +93,21 @@ WSGI_APPLICATION = 'LVSW.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
+#    }
+#}
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',  # Je nach deiner Datenbank (z. B. mysql, postgresql, sqlite3)
+        'NAME': 'LVDB2',
+        'USER': 'LVDB2Admin',
+        'PASSWORD': '#LVSWUser2024',
+        'HOST': '31.47.240.136',  # Oder die IP-Adresse deines Servers
+        'PORT': '3307',  # Port für MySQL (oder den passenden Port deiner Datenbank)
     }
 }
 

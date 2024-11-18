@@ -56,3 +56,24 @@ def geraete_liste(request):
         geraete = Geraetetyp.objects.all().select_related('herstellerid')  # Alle Geräte abrufen
     
     return render(request, 'devicemanagerapp/geraete_liste.html', {'geraete': geraete, 'query': query})
+
+def show_device(request, geraete_id):
+    # Gerät basierend auf der Geräte-ID abrufen
+    geraetetyp = get_object_or_404(Geraetetyp, geraetetypid=geraete_id)
+    return render(request, 'devicemanagerapp/show_devices.html', {'geraetetyp': geraetetyp})
+
+def edit_device(request, geraete_id):
+    # Gerät basierend auf der Geräte-ID abrufen
+    geraetetyp = get_object_or_404(Geraetetyp, geraetetypid=geraete_id)
+
+    if request.method == 'POST':
+        # Formular mit den POST-Daten binden
+        form = GeraetetypForm(request.POST, instance=geraetetyp)
+        if form.is_valid():
+            form.save()
+            return redirect('show_device', geraete_id=geraete_id)  # Weiterleitung zur Detailseite
+    else:
+        # Formular mit den aktuellen Werten initialisieren
+        form = GeraetetypForm(instance=geraetetyp)
+
+    return render(request, 'devicemanagerapp/edit_device.html', {'form': form, 'geraetetyp': geraetetyp})

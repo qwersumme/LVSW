@@ -8,15 +8,18 @@
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="text-center">Hersteller suchen</h1>
+        <h1 class="text-center">Hersteller ausw&auml;hlen</h1>
         <div class="row mt-4 align-items-center">
-            <!-- Zurück-Button am linken Rand -->
-            <div class="col-md-2 text-start">
-                <a href="{% url 'mainindex' %}" class="btn btn-outline-secondary"><b>Startseite</b></a>
+            <!-- Zurück-Buttons horizontal ausrichten -->
+            <div class="col-md-3">
+                <div class="d-flex gap-2">
+                    <a href="{% url 'mainindex' %}" class="btn btn-outline-primary"><b>Startseite</b></a>
+                    <a href="{% url 'geraete_liste' %}" class="btn btn-outline-secondary"><b>Geraeteliste</b></a>
+                </div>
             </div>
             
             <!-- Suchfeld zentriert -->
-            <div class="col-md-8 d-flex justify-content-center">
+            <div class="col-md-7 d-flex justify-content-center">
                 <form method="get" class="d-flex w-75">
                     <input type="text" name="q" placeholder="Hersteller suchen..." value="{{ query }}" class="form-control me-2">
                     <button type="submit" class="btn btn-primary">Suchen</button>
@@ -27,7 +30,6 @@
                 <a href="{% url 'hersteller_erstellen' %}" class="btn btn-outline-primary">+ Hersteller</a>
             </div>
         </div>
-
 
         <!-- Ergebnisliste -->
         <div class="mt-4">

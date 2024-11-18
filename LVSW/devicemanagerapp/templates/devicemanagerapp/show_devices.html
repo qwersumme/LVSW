@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerät Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Gerät Details</h1>
+        <div class="card mt-4">
+            <div class="card-header bg-primary text-white">
+                <h2><strong>{{ geraetetyp.herstellerid }}</strong> {{ geraetetyp.modellbezeichnung }}</h2>
+            </div>
+            <div class="card-body">
+                <p><strong>Hersteller:</strong> {{ geraetetyp.herstellerid }}</p>
+                <p><strong>Modellbezeichnung:</strong> {{ geraetetyp.modellbezeichnung }}</p>
+                <p><strong>Kategorie:</strong> {{ geraetetyp.kategorie }}</p>
+                {% if geraetetyp.anleitungslink %}
+                    <p><strong>Anleitung:</strong> 
+                        <a href="{{ geraetetyp.anleitungslink }}" target="_blank">Anleitung öffnen</a>
+                    </p>
+                {% else %}
+                    <p><strong>Anleitung:</strong> Keine Anleitung verfügbar</p>
+                {% endif %}
+                <p><strong>Gewicht:</strong> {{ geraetetyp.gewicht }} kg</p>
+                <p><strong>Abmessungen (LxBxH):</strong> {{ geraetetyp.laenge }} x {{ geraetetyp.breite }} x {{ geraetetyp.hoehe }} mm</p>
+                <p><strong>Kaufpreis:</strong> {{ geraetetyp.kaufpreis }} €</p>
+                <p><strong>Vermietpreis:</strong> {{ geraetetyp.vermietpreis }} €</p>
+                <p><strong>Mengenrabatt:</strong> {{ geraetetyp.mengenrabatt }} €</p>
+                <p><strong>Zubehör:</strong> {{ geraetetyp.zubehoer }}</p>
+                <p><strong>Notizen:</strong> {{ geraetetyp.notizen }}</p>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'geraete_liste' %}" class="btn btn-outline-secondary">Zurück zur Geräte-Liste</a>
+            <a href="{%url 'edit_device' geraetetyp.geraetetypid %}" class="btn btn-outline-primary">Bearbeiten</a>
+        </div>
+    </div>
+</body>
+</html>

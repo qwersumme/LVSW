@@ -13,18 +13,23 @@
         <p class="text-center">Welcome to LVSW-Project!</p>
         <p class="text-center text-muted">Created by qwersumme in 2024</p>
 
+        <div class="col-md-4 mb-4">
+            <a href="{% url 'geraete_liste' %}" class="btn btn-primary btn-block">Devices</a>
+        </div>
+
+        <h1>Debuging</h1>
         <!-- Buttons Group -->
         <div class="row text-center mt-4">
             <!-- Manufacturers Section -->
             <div class="col-md-4 mb-3">
-                <a href="{% url 'hersteller_liste' %}" class="btn btn-primary btn-block">Manufacturers</a>
-                <a href="{% url 'hersteller_erstellen' %}" class="btn btn-secondary btn-block mt-2">Create Manufacturer</a>
+                <a href="{% url 'hersteller_liste' %}" class="btn btn-secondary btn-block">Manufacturers</a>
+                <a href="{% url 'hersteller_erstellen' %}" class="btn btn-outline-secondary btn-block mt-2">Create Manufacturer</a>
             </div>
             
             <!-- Devices Section -->
             <div class="col-md-4 mb-3">
-                <a href="{% url 'geraete_liste' %}" class="btn btn-primary btn-block">Devices</a>
-                <a href="{% url 'suche_hersteller' %}" class="btn btn-secondary btn-block mt-2">Create Device</a>
+                <a href="{% url 'geraete_liste' %}" class="btn btn-secondary btn-block">Devices</a>
+                <a href="{% url 'suche_hersteller' %}" class="btn btn-outline-secondary btn-block mt-2">Create Device</a>
             </div>
             
             <!-- Add more sections if needed -->

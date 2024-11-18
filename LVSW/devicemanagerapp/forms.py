@@ -1,5 +1,5 @@
 from django import forms
-from .models import Hersteller, Geraetetyp
+from .models import Hersteller, Geraetetyp, Barcodeelement
 
 class HerstellerForm(forms.ModelForm):
     class Meta:
@@ -35,3 +35,32 @@ class GeraetetypForm(forms.ModelForm):
         if not modellbezeichnung:
             raise forms.ValidationError('Die Modellbezeichnung ist erforderlich.')
         return modellbezeichnung
+
+class BarcodeelementForm(forms.ModelForm):
+
+    ZUSTAND_CHOICES = [
+        ('Frei', 'Frei'),
+        ('Verliehen', 'Verliehen'),
+        ('Ausgemustert', 'Ausgemustert'),
+        ('Defekt', 'Defekt'),
+        ('Reparatur', 'Reparatur'),
+        ('Gesperrt', 'Gesperrt'),
+    ]
+    zustand = forms.ChoiceField(
+        choices=ZUSTAND_CHOICES, 
+        required=False,
+        widget=forms.Select(attrs={'class': 'form-select'}), 
+        )  # Auswahlfeld
+
+    class Meta:
+        model = Barcodeelement
+        fields = ['kaufdatum', 'bemerkungen', 'zustand', 'länge', 'breite', 'höhe']
+        widgets = {
+            'kaufdatum': forms.DateInput(attrs={'class': 'form-control', 'placeholder':'18.11.2024'}),
+            'bemerkungen': forms.Textarea(attrs={'class': 'form-control','rows': 3, 'placeholder': 'Notizen'}),
+            'zustand': forms.Select(attrs={'class': 'form-control'}),
+            'länge': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '610mm'}),
+
+            'breite': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '500mm'}),
+            'höhe': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '560mm'}),
+        }

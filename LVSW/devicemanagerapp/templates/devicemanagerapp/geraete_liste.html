@@ -56,6 +56,7 @@
                     {% endif %}
                     </td>
                     <td><a href="{% url 'show_device' g.geraetetypid %}" class="btn btn-sm btn-primary">Ger&auml;t anzeigen / bearbeiten</a></td>
+                    <td><a href="{% url 'generate_barcodes' g.geraetetypid %}" class="btn btn-sm btn-primary">+</a></td>
 
                 </tr>
                 {% empty %}

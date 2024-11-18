@@ -12,4 +12,5 @@ urlpatterns = [
     path('geraete-liste/', views.geraete_liste, name='geraete_liste'),
     path('show-device/<int:geraete_id>/', views.show_device, name='show_device'),
     path('edit-device/<int:geraete_id>/', views.edit_device, name='edit_device'),
+    path('generate-barcodes/<int:geraetetypid>/', views.generate_barcodes, name='generate_barcodes'),
 ]

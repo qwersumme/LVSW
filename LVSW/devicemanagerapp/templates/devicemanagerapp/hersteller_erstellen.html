@@ -7,6 +7,14 @@
 </head>
 <body>
     <div class="container">
+        <!-- Zurück-Button -->
+        {% if previous_url %}
+            <a href="{% url 'suche_hersteller'%}" class="btn btn-outline-secondary mt-3">Zurück</a>
+            <!-- <a href="{{ previous_url }}" class="btn btn-outline-secondary mt-3">Zurück</a> -->
+        {% else %}
+            <a href="{% url 'mainindex' %}" class="btn btn-outline-secondary mt-3">Startseite</a>
+        {% endif %}
+
         <h1 class="mt-5">Neuen Hersteller erstellen</h1>
         {% if messages %}
             {% for message in messages %}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barcodeelemente erstellen</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- Überschrift -->
+        <div class="text-center mb-4">
+            <h1 class="display-5">Barcodeelemente erstellen</h1>
+            <p class="text-muted">Gerät: <strong>{{ geraetetyp.herstellerid }} {{ geraetetyp.modellbezeichnung }}</strong></p>
+        </div>
+
+        <!-- Zurück-Link -->
+        <div class="mb-4">
+            <a href="{% url 'geraete_liste' %}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Zurück zur Geräte-Liste
+            </a>
+        </div>
+
+        <!-- Formular -->
+        <div class="card shadow">
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <!-- Anzahl der Barcodeelemente -->
+                    <div class="mb-3">
+                        <label for="anzahl" class="form-label">Anzahl der Barcodeelemente</label>
+                        <input 
+                            type="number" 
+                            name="anzahl" 
+                            id="anzahl" 
+                            class="form-control" 
+                            value="1" 
+                            min="1">
+                    </div>
+
+                    <!-- Dynamisch generiertes Formular -->
+                    <div class="mb-3">
+                        {{ form.as_p }}
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'geraete_liste' %}" class="btn btn-outline-danger">
+                            <i class="bi bi-x-circle"></i> Abbrechen
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-check-circle"></i> Barcodeelemente erstellen
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional: Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.3/font/bootstrap-icons.min.css">
+</body>
+</html>

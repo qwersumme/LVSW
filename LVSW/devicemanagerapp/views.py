@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .forms import HerstellerForm, GeraetetypForm
-from .models import Hersteller_view, Geraetetyp, Hersteller
+from .forms import HerstellerForm, GeraetetypForm, BarcodeelementForm
+from .models import Hersteller_view, Geraetetyp, Hersteller, Barcodeelement
 
 # Create your views here.
 
@@ -9,16 +9,23 @@ from .models import Hersteller_view, Geraetetyp, Hersteller
 def devicemanagerappindex(request):
     return render(request, 'devicemanagerapp/devicemanagerappindex.html')
 
+
 def hersteller_erstellen(request):
+    # Hole die URL der vorherigen Seite, falls verfügbar
+    previous_url = request.META.get('HTTP_REFERER', None)
+
     if request.method == 'POST':
         form = HerstellerForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Hersteller wurde erfolgreich erstellt!')
-            return redirect('hersteller_erstellen')
+            messages.success(request, "Hersteller wurde erfolgreich erstellt.")
+            return redirect('hersteller_erstellen')  # Weiterleitung nach Erfolg
     else:
         form = HerstellerForm()
-    return render(request, 'devicemanagerapp/hersteller_erstellen.html', {'form': form})
+    
+    # Render das Template und übergebe die previous_url
+    return render(request, 'devicemanagerapp/hersteller_erstellen.html', {'form': form, 'previous_url': previous_url})
+
 
 def hersteller_liste(request):
     hersteller = Hersteller_view.objects.all()  # Alle Hersteller aus der Datenbank abrufen
@@ -77,3 +84,69 @@ def edit_device(request, geraete_id):
         form = GeraetetypForm(instance=geraetetyp)
 
     return render(request, 'devicemanagerapp/edit_device.html', {'form': form, 'geraetetyp': geraetetyp})
+
+'''def generate_barcodes(request, geraetetypid):
+    # Sicherstellen, dass der Gerätetyp existiert
+    geraetetyp = get_object_or_404(Geraetetyp, geraetetypid=geraetetypid)
+
+    if request.method == 'POST':
+        form = BarcodeelementForm(request.POST)
+        anzahl = int(request.POST.get('anzahl', 1))  # Anzahl aus dem Formular abrufen
+        if form.is_valid():
+            # Mehrere Barcodeelemente erstellen
+            for _ in range(anzahl):
+                barcode = form.save(commit=False)
+                barcode.geraetetypid = geraetetyp
+                barcode.istgruppe = 0  # `istgruppe` immer False setzen
+                barcode.save()
+            messages.success(request, f"{anzahl} Barcodeelemente erfolgreich erstellt!")
+            return redirect('geraete_liste')  # Weiterleitung zur Geräte-Liste
+    else:
+        form = BarcodeelementForm()
+
+    return render(request, 'devicemanagerapp/generate_barcode.html', {
+        'form': form,
+        'geraetetyp': geraetetyp,
+    })
+'''
+
+def generate_barcodes(request, geraetetypid):
+    # Sicherstellen, dass der Gerätetyp existiert
+    geraetetyp = get_object_or_404(Geraetetyp, geraetetypid=geraetetypid)
+
+    if request.method == 'POST':
+        form = BarcodeelementForm(request.POST)
+        try:
+            # Anzahl der Barcodeelemente aus dem Formular abrufen
+            anzahl = int(request.POST.get('anzahl', 1))
+        except ValueError:
+            messages.error(request, "Bitte geben Sie eine gültige Anzahl ein.")
+            return redirect(request.path)
+
+        if form.is_valid():
+            # Barcodeelemente erstellen
+            for i in range(anzahl):
+                barcode = Barcodeelement(
+                    geraetetypid=geraetetyp,
+                    kaufdatum=form.cleaned_data.get('kaufdatum'),
+                    bemerkungen=form.cleaned_data.get('bemerkungen'),
+                    zustand=form.cleaned_data.get('zustand'),
+                    länge=form.cleaned_data.get('länge'),
+                    breite=form.cleaned_data.get('breite'),
+                    höhe=form.cleaned_data.get('höhe'),
+                    istgruppe=0  # `istgruppe` immer False setzen
+                )
+                barcode.save()
+
+            messages.success(request, f"{anzahl} Barcodeelemente erfolgreich erstellt!")
+            return redirect('geraete_liste')  # Weiterleitung zur Geräte-Liste
+        else:
+            messages.error(request, "Es gab ein Problem mit den eingegebenen Daten.")
+    else:
+        form = BarcodeelementForm()
+
+    return render(request, 'devicemanagerapp/generate_barcode.html', {
+        'form': form,
+        'geraetetyp': geraetetyp,
+    })
+

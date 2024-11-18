@@ -18,8 +18,8 @@
                     {% csrf_token %}
                     {{ form.as_p }}
                     <div class="text-center mt-4">
-                        <button type="submit" class="btn btn-success">Speichern</button>
-                        <a href="{% url 'show_device' geraetetyp.geraetetypid %}" class="btn btn-outline-secondary">Abbrechen</a>
+                        <button type="submit" class="btn btn-success"><i class="bi bi-check-circle"></i>Speichern</button>
+                        <a href="{% url 'show_device' geraetetyp.geraetetypid %}" class="btn btn-outline-danger"><i class="bi bi-x-circle"></i>Abbrechen</a>
                     </div>
                 </form>
             </div>

@@ -99,7 +99,7 @@ CREATE TABLE `Events` (
 --
 
 CREATE TABLE `Geraetetyp` (
-  `GerätetypID` int(11) NOT NULL,
+  `GeraetetypID` int(11) NOT NULL,
   `HerstellerID` int(11) NOT NULL,
   `Modellbezeichnung` varchar(100) DEFAULT NULL,
   `Kategorie` varchar(50) DEFAULT NULL,
@@ -202,7 +202,7 @@ ALTER TABLE `Events`
 -- Indizes für die Tabelle `Geraetetyp`
 --
 ALTER TABLE `Geraetetyp`
-  ADD PRIMARY KEY (`GerätetypID`),
+  ADD PRIMARY KEY (`GeraetetypID`),
   ADD KEY `fk_Hersteller` (`HerstellerID`);
 
 --
@@ -240,6 +240,12 @@ ALTER TABLE `Lagerort`
   MODIFY `LagerortID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT für Tabelle "Geraetetyp"
+--
+ALTER TABLE Geraetetyp MODIFY COLUMN GeraetetypID INT AUTO_INCREMENT;
+
+
+--
 -- Constraints der exportierten Tabellen
 --
 
@@ -247,7 +253,7 @@ ALTER TABLE `Lagerort`
 -- Constraints der Tabelle `BarcodeElement`
 --
 ALTER TABLE `BarcodeElement`
-  ADD CONSTRAINT `BarcodeElement_ibfk_1` FOREIGN KEY (`GeraetetypID`) REFERENCES `Geraetetyp` (`GerätetypID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `BarcodeElement_ibfk_1` FOREIGN KEY (`GeraetetypID`) REFERENCES `Geraetetyp` (`GeraetetypID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints der Tabelle `Barcode_Event`

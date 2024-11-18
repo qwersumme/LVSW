@@ -105,7 +105,7 @@ class Geraetetyp(models.Model):
 
 class Hersteller(models.Model):
     #herstellerid = models.IntegerField(db_column='HerstellerID', primary_key=True)  # Field name made lowercase.
-    id = models.AutoField(primary_key=True)
+    herstellerid = models.AutoField(primary_key=True)
     name = models.CharField(db_column='Name', max_length=100, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:

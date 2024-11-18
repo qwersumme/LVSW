@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.db.models import Q
 from .forms import HerstellerForm, GeraetetypForm, BarcodeelementForm
 from .models import Hersteller_view, Geraetetyp, Hersteller, Barcodeelement
 
@@ -58,7 +59,11 @@ def geraete_liste(request):
     # Suchfunktion
     query = request.GET.get('q', '')  # Suchparameter aus der URL abrufen
     if query:
-        geraete = Geraetetyp.objects.filter(modellbezeichnung__icontains=query).select_related('herstellerid')  # Suche in der Modellbezeichnung
+        geraete = Geraetetyp.objects.filter(
+            Q(modellbezeichnung__icontains=query) |
+            Q(herstellerid__name__icontains=query)
+            ).select_related('herstellerid')  # Suche in der Modellbezeichnung
+
     else:
         geraete = Geraetetyp.objects.all().select_related('herstellerid')  # Alle Geräte abrufen
     
@@ -84,31 +89,6 @@ def edit_device(request, geraete_id):
         form = GeraetetypForm(instance=geraetetyp)
 
     return render(request, 'devicemanagerapp/edit_device.html', {'form': form, 'geraetetyp': geraetetyp})
-
-'''def generate_barcodes(request, geraetetypid):
-    # Sicherstellen, dass der Gerätetyp existiert
-    geraetetyp = get_object_or_404(Geraetetyp, geraetetypid=geraetetypid)
-
-    if request.method == 'POST':
-        form = BarcodeelementForm(request.POST)
-        anzahl = int(request.POST.get('anzahl', 1))  # Anzahl aus dem Formular abrufen
-        if form.is_valid():
-            # Mehrere Barcodeelemente erstellen
-            for _ in range(anzahl):
-                barcode = form.save(commit=False)
-                barcode.geraetetypid = geraetetyp
-                barcode.istgruppe = 0  # `istgruppe` immer False setzen
-                barcode.save()
-            messages.success(request, f"{anzahl} Barcodeelemente erfolgreich erstellt!")
-            return redirect('geraete_liste')  # Weiterleitung zur Geräte-Liste
-    else:
-        form = BarcodeelementForm()
-
-    return render(request, 'devicemanagerapp/generate_barcode.html', {
-        'form': form,
-        'geraetetyp': geraetetyp,
-    })
-'''
 
 def generate_barcodes(request, geraetetypid):
     # Sicherstellen, dass der Gerätetyp existiert
@@ -149,4 +129,21 @@ def generate_barcodes(request, geraetetypid):
         'form': form,
         'geraetetyp': geraetetyp,
     })
+
+def barcodes_liste(request):
+    query = request.GET.get('q', '')  # Suchparameter aus der URL abrufen
+
+    if query:
+        # Suche in Barcode, Modellbezeichnung und Hersteller
+        barcodes = Barcodeelement.objects.filter(
+            Q(barcode__icontains=query) |
+            Q(geraetetypid__modellbezeichnung__icontains=query) |
+            Q(geraetetypid__herstellerid__name__icontains=query)
+        ).select_related('geraetetypid')
+    else:
+        # Ohne Suchbegriff alle Barcodes laden
+        barcodes = Barcodeelement.objects.select_related('geraetetypid')
+
+    return render(request, 'devicemanagerapp/barcodes_liste.html', {'barcodes': barcodes, 'query': query})
+
 

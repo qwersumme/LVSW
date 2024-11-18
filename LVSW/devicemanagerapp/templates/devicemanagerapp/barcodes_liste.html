@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barcodes Liste</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Liste aller Barcodes</h1>
+
+        <!--<div class="mb-3 text-end">
+            <a href="{% url 'mainindex' %}" class="btn btn-outline-secondary">Zurück zur Startseite</a>
+        </div> -->
+
+        <div class="row mt-4 align-items-center">
+            <!-- Zurück-Button am linken Rand -->
+            <div class="col-md-2 text-start">
+                <a href="{% url 'mainindex' %}" class="btn btn-outline-secondary"><b>Startseite</b></a>
+            </div>
+
+            <!-- Suchleiste -->
+            <div class="col-md-8 d-flex justify-content-center">
+                <form method="get" class="d-flex w-75">
+                    <input type="text" name="q" placeholder="Barcodes suchen..." value="{{ query }}" class="form-control me-2">
+                    <button type="submit" class="btn btn-primary">Suchen</button>
+                </form>
+            </div>
+
+            <div class="col-md-2 text-end">
+                <a href="{% url 'geraete_liste' %}" class="btn btn-outline-primary"> Ger&auml;teliste</a>
+            </div>
+
+        </div>
+
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Barcode</th>
+                    <th>Hersteller</th>
+                    <th>Modellbezeichnung</th>
+                    <th>Kaufdatum</th>
+                    <th>Zustand</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for barcode in barcodes %}
+                <tr>
+                    <td>{{ barcode.barcode }}</td>
+                    <td>{{ barcode.geraetetypid.herstellerid }}</td>
+                    <td>{{ barcode.geraetetypid.modellbezeichnung }}</td>
+                    <td>{{ barcode.kaufdatum|date:"d.m.Y" }}</td>
+                    <td>{{ barcode.zustand }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center">Keine Barcodes gefunden.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

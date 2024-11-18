@@ -31,6 +31,13 @@
                 <a href="{% url 'geraete_liste' %}" class="btn btn-secondary btn-block">Devices</a>
                 <a href="{% url 'suche_hersteller' %}" class="btn btn-outline-secondary btn-block mt-2">Create Device</a>
             </div>
+
+            <div class="col-md-4 mb-3">
+                <a href="{% url 'barcodes_liste' %}" class="btn btn-secondary btn-block">BarcodesListe</a>
+                <a href="{% url 'generate_barcodes' 2 %}" class="btn btn-outline-secondary btn-block mt-2">Create Barcode</a>
+            </div>
+            
+
             
             <!-- Add more sections if needed -->
         </div>

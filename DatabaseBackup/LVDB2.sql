@@ -273,8 +273,8 @@ ALTER TABLE `Events`
 --
 -- Constraints der Tabelle `Geraetetyp`
 --
-ALTER TABLE `Geraetetyp`
-  ADD CONSTRAINT `fk_Hersteller` FOREIGN KEY (`HerstellerID`) REFERENCES `Hersteller` (`HerstellerID`);
+ALTER TABLE `Hersteller` CHANGE `HerstellerID` `HerstellerID` INT(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `Geraetetyp` ADD CONSTRAINT `fk_Hersteller` FOREIGN KEY (`HerstellerID`) REFERENCES `Hersteller` (`HerstellerID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -2,6 +2,13 @@ from django.db import models
 
 # Create your models here.
 
+#INSERT INTO `Hersteller` (`Name`) VALUES ('Generic'), ('Futurelight'), ('Robe'), ('Martin'),('JBLighting')
+
+#ALTER TABLE `Geraetetyp` DROP FOREIGN KEY `fk_Hersteller`;
+#ALTER TABLE `Hersteller` CHANGE `HerstellerID` `HerstellerID` INT(11) NOT NULL AUTO_INCREMENT;
+#ALTER TABLE `Geraetetyp` ADD CONSTRAINT `fk_Hersteller` FOREIGN KEY (`HerstellerID`) REFERENCES `Hersteller` (`HerstellerID`);
+
+
 # This is an auto-generated Django model module.
 # You'll have to do the following manually to clean this up:
 #   * Rearrange models' order
@@ -97,6 +104,15 @@ class Geraetetyp(models.Model):
 
 
 class Hersteller(models.Model):
+    #herstellerid = models.IntegerField(db_column='HerstellerID', primary_key=True)  # Field name made lowercase.
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(db_column='Name', max_length=100, blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'Hersteller'
+
+class Hersteller_view(models.Model):
     herstellerid = models.IntegerField(db_column='HerstellerID', primary_key=True)  # Field name made lowercase.
     name = models.CharField(db_column='Name', max_length=100, blank=True, null=True)  # Field name made lowercase.
 
@@ -119,7 +135,6 @@ class Kunde(models.Model):
     class Meta:
         managed = False
         db_table = 'Kunde'
-
 
 class Lagerort(models.Model):
     lagerortid = models.AutoField(db_column='LagerortID', primary_key=True)  # Field name made lowercase.

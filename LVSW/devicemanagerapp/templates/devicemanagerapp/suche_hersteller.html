@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Hersteller suchen</title>
+</head>
+<body>
+    <h1>Hersteller suchen</h1>
+    <form method="get">
+        <input type="text" name="q" placeholder="Hersteller suchen..." value="{{ query }}">
+        <button type="submit">Suchen</button>
+    </form>
+    <ul>
+        {% for h in hersteller %}
+            {% if h.herstellerid %}    
+            <li>
+                <a href="{% url 'erstelle_geraet' h.herstellerid %}">{{ h.name }}</a>
+            </li>
+            {% else %}
+            <li>!UNGUELTIGER EINTRAG!</li>
+        {% endif %}
+
+        {% endfor %}
+    </ul>
+</body>
+</html>

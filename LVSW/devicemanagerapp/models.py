@@ -83,15 +83,15 @@ class Events(models.Model):
 
 
 class Geraetetyp(models.Model):
-    gerätetypid = models.IntegerField(db_column='GerätetypID', primary_key=True)  # Field name made lowercase.
+    geraetetypid = models.IntegerField(db_column='GeraetetypID', primary_key=True)  # Field name made lowercase.
     herstellerid = models.ForeignKey('Hersteller', models.DO_NOTHING, db_column='HerstellerID')  # Field name made lowercase.
     modellbezeichnung = models.CharField(db_column='Modellbezeichnung', max_length=100, blank=True, null=True)  # Field name made lowercase.
     kategorie = models.CharField(db_column='Kategorie', max_length=50, blank=True, null=True)  # Field name made lowercase.
     anleitungslink = models.TextField(db_column='Anleitungslink', blank=True, null=True)  # Field name made lowercase.
     gewicht = models.DecimalField(db_column='Gewicht', max_digits=10, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
-    länge = models.DecimalField(db_column='Länge', max_digits=10, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
+    laenge = models.DecimalField(db_column='Länge', max_digits=10, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
     breite = models.DecimalField(db_column='Breite', max_digits=10, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
-    höhe = models.DecimalField(db_column='Höhe', max_digits=10, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
+    hoehe = models.DecimalField(db_column='Höhe', max_digits=10, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
     kaufpreis = models.DecimalField(db_column='Kaufpreis', max_digits=10, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
     vermietpreis = models.DecimalField(db_column='Vermietpreis', max_digits=10, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
     mengenrabatt = models.DecimalField(db_column='Mengenrabatt', max_digits=10, decimal_places=2, blank=True, null=True)  # Field name made lowercase.

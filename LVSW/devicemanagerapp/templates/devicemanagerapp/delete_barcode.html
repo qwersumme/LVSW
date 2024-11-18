@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Barcode löschen</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center text-danger">Barcode löschen</h1>
+        <p class="text-center">Möchten Sie den Barcode <strong>{{ barcode.barcode }}</strong> wirklich löschen?</p>
+        <div class="text-center">
+            <form method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Ja, löschen</button>
+            </form>
+            <a href="{% url 'barcodes_liste' %}" class="btn btn-secondary">Abbrechen</a>
+        </div>
+    </div>
+</body>
+</html>

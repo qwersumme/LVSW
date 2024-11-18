@@ -14,4 +14,5 @@ urlpatterns = [
     path('edit-device/<int:geraete_id>/', views.edit_device, name='edit_device'),
     path('generate-barcodes/<int:geraetetypid>/', views.generate_barcodes, name='generate_barcodes'),
     path('barcodes-liste/', views.barcodes_liste, name='barcodes_liste'),
+    path('delete-barcode/<int:barcode_id>/', views.delete_barcode, name='delete_barcode'),
 ]

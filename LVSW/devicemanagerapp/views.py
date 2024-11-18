@@ -146,4 +146,11 @@ def barcodes_liste(request):
 
     return render(request, 'devicemanagerapp/barcodes_liste.html', {'barcodes': barcodes, 'query': query})
 
+def delete_barcode(request, barcode_id):
+    barcode = get_object_or_404(Barcodeelement, barcode=barcode_id)
+    if request.method == 'POST':
+        barcode.delete()
+        messages.success(request, f"Barcode {barcode_id} wurde erfolgreich gelöscht!")
+        return redirect('barcodes_liste')  # Zurück zur Liste aller Barcodes
+    return render(request, 'devicemanagerapp/delete_barcode.html', {'barcode': barcode})
 

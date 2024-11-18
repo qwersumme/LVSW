@@ -56,7 +56,7 @@ class BarcodeelementForm(forms.ModelForm):
         model = Barcodeelement
         fields = ['kaufdatum', 'bemerkungen', 'zustand', 'länge', 'breite', 'höhe']
         widgets = {
-            'kaufdatum': forms.DateInput(attrs={'class': 'form-control', 'placeholder':'18.11.2024'}),
+            'kaufdatum': forms.DateInput(attrs={'class': 'form-control', 'placeholder':'mm/dd/yyyy'}),
             'bemerkungen': forms.Textarea(attrs={'class': 'form-control','rows': 3, 'placeholder': 'Notizen'}),
             'zustand': forms.Select(attrs={'class': 'form-control'}),
             'länge': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '610mm'}),

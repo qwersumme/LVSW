@@ -46,3 +46,13 @@ def erstelle_geraet(request, hersteller_id):
         form = GeraetetypForm(initial={'herstellerid':hersteller_id})
 
     return render(request, 'devicemanagerapp/erstelle_geraet.html', {'form': form, 'hersteller': hersteller})
+
+def geraete_liste(request):
+    # Suchfunktion
+    query = request.GET.get('q', '')  # Suchparameter aus der URL abrufen
+    if query:
+        geraete = Geraetetyp.objects.filter(modellbezeichnung__icontains=query).select_related('herstellerid')  # Suche in der Modellbezeichnung
+    else:
+        geraete = Geraetetyp.objects.all().select_related('herstellerid')  # Alle Geräte abrufen
+    
+    return render(request, 'devicemanagerapp/geraete_liste.html', {'geraete': geraete, 'query': query})

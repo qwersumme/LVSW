@@ -25,7 +25,7 @@ urlpatterns = [
     path('rentalapp/', include('rentalapp.urls')),
     path('eventmanagerapp/', include('eventmanagerapp.urls')),
     path('devicemanagerapp/', include('devicemanagerapp.urls')),
-    path('', views.index),
+    path('', views.index,name='mainindex'),
 
 ]
 

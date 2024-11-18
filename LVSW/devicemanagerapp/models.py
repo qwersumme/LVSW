@@ -95,8 +95,11 @@ class Geraetetyp(models.Model):
     kaufpreis = models.DecimalField(db_column='Kaufpreis', max_digits=10, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
     vermietpreis = models.DecimalField(db_column='Vermietpreis', max_digits=10, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
     mengenrabatt = models.DecimalField(db_column='Mengenrabatt', max_digits=10, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
-    zubehör = models.TextField(db_column='Zubehör', blank=True, null=True)  # Field name made lowercase.
+    zubehoer = models.TextField(db_column='Zubehör', blank=True, null=True)  # Field name made lowercase.
     notizen = models.TextField(db_column='Notizen', blank=True, null=True)  # Field name made lowercase.
+
+    def __str__(self):
+        return self.modellbezeichnung
 
     class Meta:
         managed = False

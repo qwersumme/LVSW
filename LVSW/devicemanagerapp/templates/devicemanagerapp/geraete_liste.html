@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geräte Liste</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Geräte Liste</h1>
+
+        <!-- Suchleiste -->
+        <form method="get" class="d-flex justify-content-center mt-4">
+            <input type="text" name="q" placeholder="Gerät suchen..." value="{{ query }}" class="form-control w-50 me-2">
+            <button type="submit" class="btn btn-primary">Suchen</button>
+        </form>
+
+        <!-- Geräte-Tabelle -->
+        <table class="table table-striped mt-4">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Hersteller</th>
+                    <th>Modellbezeichnung</th>
+                    <th>Anleitungslink</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for g in geraete %}
+                <tr>
+                    <td>{{ g.geraetetypid }}</td>
+                    <td>{{ g.herstellerid }}</td>
+                    <td>{{ g.modellbezeichnung }}</td>
+                    <td>
+                    {% if g.anleitungslink %}
+                        <a href="{{ g.anleitungslink }}" target="_blank" class="btn btn-sm btn-primary">Anleitung öffnen</a>
+                    {% else %}
+                        <span class="text-muted">Keine Anleitung verfügbar</span>
+                    {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" class="text-center">Keine Geräte gefunden.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

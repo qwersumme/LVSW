@@ -108,6 +108,9 @@ class Hersteller(models.Model):
     herstellerid = models.AutoField(primary_key=True)
     name = models.CharField(db_column='Name', max_length=100, blank=True, null=True)  # Field name made lowercase.
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         managed = False
         db_table = 'Hersteller'

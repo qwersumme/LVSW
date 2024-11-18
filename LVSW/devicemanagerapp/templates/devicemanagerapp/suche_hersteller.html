@@ -2,25 +2,35 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hersteller suchen</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Hersteller suchen</h1>
-    <form method="get">
-        <input type="text" name="q" placeholder="Hersteller suchen..." value="{{ query }}">
-        <button type="submit">Suchen</button>
-    </form>
-    <ul>
-        {% for h in hersteller %}
-            {% if h.herstellerid %}    
-            <li>
-                <a href="{% url 'erstelle_geraet' h.herstellerid %}">{{ h.name }}</a>
-            </li>
-            {% else %}
-            <li>!UNGUELTIGER EINTRAG!</li>
-        {% endif %}
+    <div class="container mt-5">
+        <h1 class="text-center">Hersteller suchen</h1>
+        
+        <!-- Suchfeld -->
+        <form method="get" class="d-flex justify-content-center mt-4">
+            <input type="text" name="q" placeholder="Hersteller suchen..." value="{{ query }}" class="form-control w-50 me-2">
+            <button type="submit" class="btn btn-primary">Suchen</button>
+        </form>
 
-        {% endfor %}
-    </ul>
+        <!-- Ergebnisliste -->
+        <div class="mt-4">
+            <ul class="list-group">
+                {% for h in hersteller %}
+                    {% if h.herstellerid %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ h.name }}
+                        <a href="{% url 'erstelle_geraet' h.herstellerid %}" class="btn btn-sm btn-outline-primary">W&auml;hlen</a>
+                    </li>
+                    {% else %}
+                    <li class="list-group-item text-danger">!UNGUELTIGER EINTRAG!</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 </body>
 </html>

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .forms import HerstellerForm, GeraetetypForm
 from .models import Hersteller_view, Geraetetyp, Hersteller
@@ -30,13 +30,19 @@ def suche_hersteller(request):
     return render(request, 'devicemanagerapp/suche_hersteller.html', {'hersteller': hersteller, 'query': query})
 
 def erstelle_geraet(request, hersteller_id):
-    hersteller = Hersteller.objects.get(herstellerid=hersteller_id)
+    # Hersteller aus der ID in der URL abrufen
+    hersteller = get_object_or_404(Hersteller, herstellerid=hersteller_id)
+
     if request.method == 'POST':
         form = GeraetetypForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('suche_hersteller')  # Zurück zur Suchseite
+            geraet = form.save(commit=False)
+            # Hersteller für das Gerät setzen
+            geraet.hersteller = hersteller
+            geraet.save()
+            return redirect('suche_hersteller')  # Nach dem Speichern zurück zur Suchseite
     else:
-        form = GeraetetypForm(initial={'hersteller': hersteller})
-    return render(request, 'devicemanagerapp/erstelle_geraet.html', {'form': form, 'hersteller': hersteller})
+        # Initialisiere das Formular ohne Daten
+        form = GeraetetypForm(initial={'herstellerid':hersteller_id})
 
+    return render(request, 'devicemanagerapp/erstelle_geraet.html', {'form': form, 'hersteller': hersteller})

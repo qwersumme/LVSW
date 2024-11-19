@@ -90,6 +90,14 @@ def edit_device(request, geraete_id):
 
     return render(request, 'devicemanagerapp/edit_device.html', {'form': form, 'geraetetyp': geraetetyp})
 
+def delete_geraetetyp(request, geraetetypid):
+    geraetetyp = get_object_or_404(Geraetetyp, geraetetypid=geraetetypid)
+    if request.method == 'POST':
+        geraetetyp.delete()
+        messages.success(request, f"Gerätetyp {geraetetyp.modellbezeichnung} wurde erfolgreich gelöscht!")
+        return redirect('geraete_liste')  # Zurück zur Geräte-Liste
+    return redirect('geraete_liste')
+
 def generate_barcodes(request, geraetetypid):
     # Sicherstellen, dass der Gerätetyp existiert
     geraetetyp = get_object_or_404(Geraetetyp, geraetetypid=geraetetypid)
@@ -139,10 +147,10 @@ def barcodes_liste(request):
             Q(barcode__icontains=query) |
             Q(geraetetypid__modellbezeichnung__icontains=query) |
             Q(geraetetypid__herstellerid__name__icontains=query)
-        ).select_related('geraetetypid')
+        ).select_related('geraetetypid').order_by('barcode')
     else:
         # Ohne Suchbegriff alle Barcodes laden
-        barcodes = Barcodeelement.objects.select_related('geraetetypid')
+        barcodes = Barcodeelement.objects.select_related('geraetetypid').order_by('barcode')
 
     return render(request, 'devicemanagerapp/barcodes_liste.html', {'barcodes': barcodes, 'query': query})
 

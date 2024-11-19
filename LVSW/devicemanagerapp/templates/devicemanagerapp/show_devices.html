@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerät Details</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+
 </head>
 <body>
     <div class="container mt-5">
@@ -36,7 +38,7 @@
         </div>
         <div class="text-center mt-4">
             <a href="{% url 'geraete_liste' %}" class="btn btn-outline-secondary">Zurück zur Geräte-Liste</a>
-            <a href="{%url 'edit_device' geraetetyp.geraetetypid %}" class="btn btn-outline-primary">Bearbeiten</a>
+            <a href="{%url 'edit_device' geraetetyp.geraetetypid %}" class="btn btn-outline-primary"><i class="bi bi-pencil"></i> Bearbeiten</a>
         </div>
     </div>
 </body>

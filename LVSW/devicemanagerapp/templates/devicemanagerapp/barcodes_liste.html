@@ -16,6 +16,18 @@
             <p class="text-muted">Durchsuchen Sie die Barcodes, Modellbezeichnungen oder Hersteller</p>
         </div>
 
+        <div class="container mt-3">
+            <!-- Nachrichten anzeigen -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        
         <!-- Navigation und Suchleiste -->
         <div class="row mb-4 align-items-center">
             <!-- Zurück-Button -->
@@ -30,7 +42,7 @@
                 <form method="get" class="d-flex">
                     <input type="text" name="q" placeholder="Suchen nach Barcode, Hersteller oder Modell..." value="{{ query }}" class="form-control me-2">
                     <button type="submit" class="btn btn-primary">
-                        <i class="bi bi-search"></i> Suchen
+                        <i class="bi bi-search"></i>
                     </button>
                 </form>
             </div>
@@ -38,7 +50,7 @@
             <!-- Geräte-Liste -->
             <div class="col-md-2 text-end">
                 <a href="{% url 'geraete_liste' %}" class="btn btn-outline-primary">
-                    <i class="bi bi-list"></i> Gerätegruppen
+                    Gerätegruppen
                 </a>
             </div>
         </div>

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerät bearbeiten</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+
 </head>
 <body>
     <div class="container mt-5">
@@ -18,8 +20,8 @@
                     {% csrf_token %}
                     {{ form.as_p }}
                     <div class="text-center mt-4">
-                        <button type="submit" class="btn btn-success"><i class="bi bi-check-circle"></i>Speichern</button>
-                        <a href="{% url 'show_device' geraetetyp.geraetetypid %}" class="btn btn-outline-danger"><i class="bi bi-x-circle"></i>Abbrechen</a>
+                        <button type="submit" class="btn btn-success"><i class="bi bi-check-circle"></i> Speichern</button>
+                        <a href="{% url 'show_device' geraetetyp.geraetetypid %}" class="btn btn-outline-danger"><i class="bi bi-x-circle"></i> Abbrechen</a>
                     </div>
                 </form>
             </div>

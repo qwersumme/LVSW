@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Geräte Liste</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
 </head>
 <body>
     <div class="container mt-5">
@@ -13,21 +14,22 @@
         <div class="row mt-4 align-items-center">
             <!-- Zurück-Button am linken Rand -->
             <div class="col-md-2 text-start">
-                <a href="{% url 'mainindex' %}" class="btn btn-outline-secondary"><b>Startseite</b></a>
+                <a href="{% url 'mainindex' %}" class="btn btn-outline-secondary">
+                    <i class="bi bi-house-door"></i> Startseite
+                </a>
             </div>
 
-        <!-- Suchleiste -->
-        <div class="col-md-8 d-flex justify-content-center">
-            <form method="get" class="d-flex w-75">
-                <input type="text" name="q" placeholder="Gerät suchen..." value="{{ query }}" class="form-control me-2">
-                <button type="submit" class="btn btn-primary">Suchen</button>
-            </form>
-        </div>
+            <!-- Suchleiste -->
+            <div class="col-md-8 d-flex justify-content-center">
+                <form method="get" class="d-flex w-75">
+                    <input type="text" name="q" placeholder="Gerät suchen..." value="{{ query }}" class="form-control me-2">
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
+                </form>
+            </div>
 
-        <div class="col-md-2 text-end">
-            <a href="{% url 'suche_hersteller' %}" class="btn btn-outline-primary">+ Ger&auml;t</a>
-        </div>
-
+            <div class="col-md-2 text-end">
+                <a href="{% url 'suche_hersteller' %}" class="btn btn-outline-primary">+ Ger&auml;t</a>
+            </div>
         </div>
 
         <div class="row mt-4 align-items-center">
@@ -36,12 +38,12 @@
         <table class="table table-striped mt-4">
             <thead class="thead-dark">
                 <tr>
-
                     <th>Hersteller</th>
                     <th>Modellbezeichnung</th>
                     <th>Anleitungslink</th>
                     <th>Anzeigen</th>
                     <th>Barcode</th>
+                    <th>Löschen</th>
                 </tr>
             </thead>
             <tbody>
@@ -51,18 +53,35 @@
                     <td>{{ g.modellbezeichnung }}</td>
                     <td>
                     {% if g.anleitungslink %}
-                        <a href="{{ g.anleitungslink }}" target="_blank" class="btn btn-sm btn-primary">Anleitung öffnen</a>
+                        <a href="{{ g.anleitungslink }}" target="_blank" class="btn btn-sm btn-primary">
+                            <i class="bi bi-book"></i> Anleitung anzeigen
+                        </a>
                     {% else %}
                         <span class="text-muted">Keine Anleitung verfügbar</span>
                     {% endif %}
                     </td>
-                    <td><a href="{% url 'show_device' g.geraetetypid %}" class="btn btn-sm btn-primary">Ger&auml;t anzeigen / bearbeiten</a></td>
-                    <td><a href="{% url 'generate_barcodes' g.geraetetypid %}" class="btn btn-sm btn-primary">+</a></td>
-
+                    <td>
+                        <a href="{% url 'show_device' g.geraetetypid %}" class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-eyeglasses"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'generate_barcodes' g.geraetetypid %}" class="btn btn-sm btn-outline-success">
+                            <i class="bi bi-plus-circle"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <form method="post" action="{% url 'delete_geraetetyp' g.geraetetypid %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </form>
+                    </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="3" class="text-center">Keine Geräte gefunden.</td>
+                    <td colspan="6" class="text-center">Keine Geräte gefunden.</td>
                 </tr>
                 {% endfor %}
             </tbody>

@@ -95,3 +95,27 @@ class BarcodeelementForm2(forms.ModelForm):
         'höhe': 'Höhe (cm)',
     }
 
+# Formular zur Auswahl des Zustands
+class ZustandSelectionForm(forms.Form):
+    ZUSTAND_CHOICES = [
+        ('Frei', 'Frei'),
+        ('Verliehen', 'Verliehen'),
+        ('Ausgemustert', 'Ausgemustert'),
+        ('Defekt', 'Defekt'),
+        ('Reparatur', 'Reparatur'),
+        ('Gesperrt', 'Gesperrt'),
+    ]
+    zustand = forms.ChoiceField(choices=ZUSTAND_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
+
+# Formular zur Eingabe eines einzelnen Barcodes als Zahl
+class BarcodeSingleInputForm(forms.Form):
+    barcode = forms.IntegerField(
+        widget=forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Barcode eingeben...',
+            'min': 1  # Optional: Mindestwert
+        }),
+        label="Barcode"
+    )
+
+

@@ -18,5 +18,6 @@ urlpatterns = [
     path('barcode-details/<int:barcode_id>/', views.barcode_details, name='barcode_details'),
     path('delete-barcode/<int:barcode_id>/', views.delete_barcode, name='delete_barcode'),
     path('edit-barcode/<int:barcode_id>/', views.edit_barcode, name='edit_barcode'),
-    
+    path('select-status/', views.select_status, name='select_status'),
+    path('update-status/', views.update_status, name='update_status'),
 ]

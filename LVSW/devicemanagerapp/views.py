@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.db.models import Q
-from .forms import HerstellerForm, GeraetetypForm, BarcodeelementForm
+from .forms import HerstellerForm, GeraetetypForm, BarcodeelementForm, ZustandSelectionForm, BarcodeSingleInputForm
 from .models import Hersteller_view, Geraetetyp, Hersteller, Barcodeelement
 
 # Create your views here.
@@ -181,3 +181,47 @@ def delete_barcode(request, barcode_id):
         return redirect('barcodes_liste')  # Zurück zur Liste aller Barcodes
     return render(request, 'devicemanagerapp/delete_barcode.html', {'barcode': barcode})
 
+
+# Auswahl des Zustands
+def select_status(request):
+    if request.method == 'POST':
+        form = ZustandSelectionForm(request.POST)
+        if form.is_valid():
+            zustand = form.cleaned_data['zustand']
+            # Speichere den ausgewählten Zustand in der Session
+            request.session['selected_zustand'] = zustand
+            return redirect('update_status')
+    else:
+        form = ZustandSelectionForm()
+
+    return render(request, 'devicemanagerapp/select_status.html', {'form': form})
+
+# Barcodeeingabe und Aktualisierung des Zustands
+def update_status(request):
+    selected_zustand = request.session.get('selected_zustand')
+    if not selected_zustand:
+        messages.error(request, "Bitte wählen Sie zuerst einen Zustand.")
+        return redirect('select_status')
+
+    if request.method == 'POST':
+        form = BarcodeSingleInputForm(request.POST)
+        if form.is_valid():
+            barcode = form.cleaned_data['barcode']  # Der Barcode ist jetzt eine Zahl
+            try:
+                # Barcode aktualisieren
+                barcode_element = Barcodeelement.objects.get(barcode=barcode)
+                barcode_element.zustand = selected_zustand
+                barcode_element.save()
+                messages.success(request, f"Barcode {barcode} erfolgreich auf '{selected_zustand}' aktualisiert.")
+            except Barcodeelement.DoesNotExist:
+                messages.warning(request, f"Barcode {barcode} nicht gefunden.")
+
+            # Zur Barcodeeingabe zurückkehren
+            return redirect('update_status')
+    else:
+        form = BarcodeSingleInputForm()
+
+    return render(request, 'devicemanagerapp/update_status.html', {
+        'form': form,
+        'selected_zustand': selected_zustand
+    })

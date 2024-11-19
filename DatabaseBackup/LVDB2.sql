@@ -33,7 +33,7 @@ CREATE TABLE `BarcodeElement` (
   `Kaufdatum` date DEFAULT NULL,
   `Bemerkungen` text,
   `IstGruppe` tinyint(1) DEFAULT NULL,
-  `Zustand` enum('Frei','Verliegen','Ausgemustert','Defekt','Reparatur') DEFAULT NULL,
+  `Zustand` enum('Frei','Verliehen','Ausgemustert','Defekt','Reparatur') DEFAULT NULL,
   `Länge` decimal(10,2) DEFAULT NULL,
   `Breite` decimal(10,2) DEFAULT NULL,
   `Höhe` decimal(10,2) DEFAULT NULL

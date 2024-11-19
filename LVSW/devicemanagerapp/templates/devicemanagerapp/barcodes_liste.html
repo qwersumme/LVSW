@@ -40,7 +40,7 @@
             <!-- Suchleiste -->
             <div class="col-md-8">
                 <form method="get" class="d-flex">
-                    <input type="text" name="q" placeholder="Suchen nach Barcode, Hersteller oder Modell..." value="{{ query }}" class="form-control me-2">
+                    <input type="text" name="q" placeholder="Suchen nach Barcode, Hersteller, Modell oder Kategorie..." value="{{ query }}" class="form-control me-2">
                     <button type="submit" class="btn btn-primary">
                         <i class="bi bi-search"></i>
                     </button>
@@ -50,7 +50,7 @@
             <!-- Geräte-Liste -->
             <div class="col-md-2 text-end">
                 <a href="{% url 'geraete_liste' %}" class="btn btn-outline-primary">
-                    Gerätegruppen
+                    Geräteliste
                 </a>
             </div>
         </div>
@@ -64,6 +64,7 @@
                             <th>Barcode</th>
                             <th>Hersteller</th>
                             <th>Modellbezeichnung</th>
+                            <th>Kategorie</th>
                             <th>Kaufdatum</th>
                             <th>Zustand</th>
                         </tr>
@@ -74,6 +75,7 @@
                             <td>{{ barcode.barcode }}</td>
                             <td>{{ barcode.geraetetypid.herstellerid }}</td>
                             <td>{{ barcode.geraetetypid.modellbezeichnung }}</td>
+                            <td>{{ barcode.geraetetypid.kategorie }}</td>
                             <td>{{ barcode.kaufdatum|date:"d.m.Y" }}</td>
                             <td>{{ barcode.zustand }}</td>
                             <td>

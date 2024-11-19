@@ -23,18 +23,25 @@
         <h1 class="text-center">Geräte Liste</h1>
 
         <div class="row mt-4 align-items-center">
-            <!-- Zurück-Button am linken Rand -->
-            <div class="col-md-2 text-start">
-                <a href="{% url 'mainindex' %}" class="btn btn-outline-secondary">
-                    <i class="bi bi-house-door"></i> Startseite
-                </a>
+            <!-- Buttons Startseite und Barcodeliste nebeneinander -->
+            <div class="col-md-4">
+                <div class="btn-group" role="group">
+                    <a href="{% url 'mainindex' %}" class="btn btn-outline-secondary">
+                        <i class="bi bi-house-door"></i> Startseite
+                    </a>
+                    <a href="{% url 'barcodes_liste' %}" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-back"></i> Barcodeliste
+                    </a>
+                </div>
             </div>
 
             <!-- Suchleiste -->
-            <div class="col-md-8 d-flex justify-content-center">
+            <div class="col-md-6 d-flex justify-content-center">
                 <form method="get" class="d-flex w-75">
                     <input type="text" name="q" placeholder="Gerät suchen..." value="{{ query }}" class="form-control me-2">
-                    <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-search"></i>
+                    </button>
                 </form>
             </div>
 
@@ -51,10 +58,9 @@
                 <tr>
                     <th>Hersteller</th>
                     <th>Modellbezeichnung</th>
+                    <th>Kategorie</th>
                     <th>Anleitungslink</th>
-                    <th>Anzeigen</th>
-                    <th>Barcode</th>
-                    <th>Löschen</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -62,6 +68,7 @@
                 <tr>
                     <td>{{ g.herstellerid }}</td>
                     <td>{{ g.modellbezeichnung }}</td>
+                    <td>{{ g.kategorie }}</td>
                     <td>
                     {% if g.anleitungslink %}
                         <a href="{{ g.anleitungslink }}" target="_blank" class="btn btn-sm btn-primary">
@@ -73,22 +80,22 @@
                     </td>
                     <td>
                         <a href="{% url 'show_device' g.geraetetypid %}" class="btn btn-sm btn-outline-info">
-                            <i class="bi bi-info-circle"></i>
+                            <i class="bi bi-info-circle"></i> <i class="bi bi-pencil-square"></i>
                         </a>
-                    </td>
-                    <td>
-                        <a href="{% url 'generate_barcodes' g.geraetetypid %}" class="btn btn-sm btn-outline-success">
-                            <i class="bi bi-plus-circle"></i>
-                        </a>
-                    </td>
-                    <td>
                         <form method="post" action="{% url 'delete_geraetetyp' g.geraetetypid %}" style="display:inline;">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-sm btn-outline-danger">
                                 <i class="bi bi-trash"></i>
                             </button>
                         </form>
+                        <a href="{% url 'generate_barcodes' g.geraetetypid %}" class="btn btn-sm btn-outline-success">
+                            <i class="bi bi-arrow-bar-right"></i>
+                        </a>
                     </td>
+                    <td>
+                        
+                    </td>
+                    
                 </tr>
                 {% empty %}
                 <tr>

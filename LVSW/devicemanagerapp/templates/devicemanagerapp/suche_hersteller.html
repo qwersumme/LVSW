@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hersteller suchen</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
 </head>
 <body>
     <div class="container mt-5">
@@ -12,9 +13,13 @@
         <div class="row mt-4 align-items-center">
             <!-- Zurück-Buttons horizontal ausrichten -->
             <div class="col-md-3">
-                <div class="d-flex gap-2">
-                    <a href="{% url 'mainindex' %}" class="btn btn-outline-primary"><b>Startseite</b></a>
-                    <a href="{% url 'geraete_liste' %}" class="btn btn-outline-secondary"><b>Geraeteliste</b></a>
+                <div class="btn-group" role="group">
+                    <a href="{% url 'mainindex' %}" class="btn btn-outline-secondary">
+                        <i class="bi bi-house-door"></i> Startseite
+                    </a>
+                    <a href="{% url 'geraete_liste' %}" class="btn btn-outline-secondary">
+                        Geraeteliste
+                    </a>
                 </div>
             </div>
             

@@ -61,7 +61,8 @@ def geraete_liste(request):
     if query:
         geraete = Geraetetyp.objects.filter(
             Q(modellbezeichnung__icontains=query) |
-            Q(herstellerid__name__icontains=query)
+            Q(herstellerid__name__icontains=query) |
+            Q(kategorie__icontains=query)
             ).select_related('herstellerid')  # Suche in der Modellbezeichnung
 
     else:
@@ -146,7 +147,8 @@ def barcodes_liste(request):
         barcodes = Barcodeelement.objects.filter(
             Q(barcode__icontains=query) |
             Q(geraetetypid__modellbezeichnung__icontains=query) |
-            Q(geraetetypid__herstellerid__name__icontains=query)
+            Q(geraetetypid__herstellerid__name__icontains=query) |
+            Q(geraetetypid__kategorie__icontains=query)
         ).select_related('geraetetypid').order_by('barcode')
     else:
         # Ohne Suchbegriff alle Barcodes laden

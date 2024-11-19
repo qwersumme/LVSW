@@ -17,7 +17,7 @@ class GeraetetypForm(forms.ModelForm):
         widgets = {
             'herstellerid': forms.Select(attrs={'class': 'form-control'}),
             'modellbezeichnung': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'PS-1801 MK2'}),
-            'kategorie': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Sound'}),
+            'kategorie': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Sound/Mischpult'}),
             'anleitungslink': forms.TextInput(attrs={'class': 'form-control', 'placeholder':'https://example.link/manual.pdf'}),
             'gewicht': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '40kg'}),
             'laenge': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '610mm'}),

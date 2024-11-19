@@ -27,7 +27,7 @@
                 {% endfor %}
             {% endif %}
         </div>
-        
+
         <!-- Navigation und Suchleiste -->
         <div class="row mb-4 align-items-center">
             <!-- Zurück-Button -->
@@ -76,6 +76,11 @@
                             <td>{{ barcode.geraetetypid.modellbezeichnung }}</td>
                             <td>{{ barcode.kaufdatum|date:"d.m.Y" }}</td>
                             <td>{{ barcode.zustand }}</td>
+                            <td>
+                                <a href="{% url 'barcode_details' barcode.barcode %}" class="btn btn-sm btn-outline-info">
+                                    <i class="bi bi-info-circle"></i> Details
+                                </a>
+                            </td>
                             <td>
                                 <form method="post" action="{% url 'delete_barcode' barcode.barcode %}" style="display:inline;">
                                     {% csrf_token %}

@@ -33,10 +33,10 @@ class Barcodeelement(models.Model):
     kaufdatum = models.DateField(db_column='Kaufdatum', blank=True, null=True)  # Field name made lowercase.
     bemerkungen = models.TextField(db_column='Bemerkungen', blank=True, null=True)  # Field name made lowercase.
     istgruppe = models.IntegerField(db_column='IstGruppe', blank=True, null=True)  # Field name made lowercase.
-    zustand = models.CharField(db_column='Zustand', max_length=12, blank=True, null=True, )  # Field name made lowercase.
+    zustand = models.CharField(db_column='Zustand', max_length=12, blank=True, null=True,choices=ZUSTAND_CHOICES)  # Field name made lowercase.
     länge = models.DecimalField(db_column='Länge', max_digits=10, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
     breite = models.DecimalField(db_column='Breite', max_digits=10, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
-    höhe = models.DecimalField(db_column='Höhe', max_digits=10, decimal_places=2, blank=True, null=True,choices=ZUSTAND_CHOICES)  # Field name made lowercase.
+    höhe = models.DecimalField(db_column='Höhe', max_digits=10, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False

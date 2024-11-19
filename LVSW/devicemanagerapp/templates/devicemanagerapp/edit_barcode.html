@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barcode bearbeiten</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Barcode bearbeiten</h1>
+        <div class="card shadow mt-4">
+            <div class="card-body">
+                <h5 class="card-title">Barcode: {{ barcode.barcode }}</h5>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+
+                    <div class="mt-3">
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-save"></i> Speichern
+                        </button>
+                        <a href="{% url 'barcode_details' barcode.barcode %}" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left"></i> Abbrechen
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

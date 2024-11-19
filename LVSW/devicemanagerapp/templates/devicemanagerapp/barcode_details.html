@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barcode Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Barcode Details</h1>
+        <div class="card shadow mt-4">
+            <div class="card-body">
+                <h5 class="card-title">Barcode: {{ barcode.barcode }}</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Hersteller:</strong> {{ barcode.geraetetypid.herstellerid }}</li>
+                    <li class="list-group-item"><strong>Modellbezeichnung:</strong> {{ barcode.geraetetypid.modellbezeichnung }}</li>
+                    <li class="list-group-item"><strong>Kaufdatum:</strong> {{ barcode.kaufdatum|date:"d.m.Y" }}</li>
+                    <li class="list-group-item"><strong>Zustand:</strong> {{ barcode.zustand }}</li>
+                    <li class="list-group-item"><strong>Länge:</strong> {{ barcode.länge }}</li>
+                    <li class="list-group-item"><strong>Breite:</strong> {{ barcode.breite }}</li>
+                    <li class="list-group-item"><strong>Höhe:</strong> {{ barcode.höhe }}</li>
+                    <li class="list-group-item"><strong>Bemerkungen:</strong> {{ barcode.bemerkungen }}</li>
+                </ul>
+                <div class="mt-4">
+                    <a href="{% url 'barcodes_liste' %}" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left"></i> Zurück zur Liste
+                    </a>
+                    <a href="{% url 'edit_barcode' barcode.barcode %}" class="btn btn-warning">
+                        <i class="bi bi-pencil"></i> Bearbeiten
+                    </a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

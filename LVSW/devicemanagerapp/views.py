@@ -154,6 +154,25 @@ def barcodes_liste(request):
 
     return render(request, 'devicemanagerapp/barcodes_liste.html', {'barcodes': barcodes, 'query': query})
 
+
+def barcode_details(request, barcode_id):
+    # Barcode-Element basierend auf der ID abrufen
+    barcode = get_object_or_404(Barcodeelement, barcode=barcode_id)
+    return render(request, 'devicemanagerapp/barcode_details.html', {'barcode': barcode})
+
+def edit_barcode(request, barcode_id):
+    barcode = get_object_or_404(Barcodeelement, barcode=barcode_id)  # Barcode abrufen
+    if request.method == 'POST':
+        form = BarcodeelementForm(request.POST, instance=barcode)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Barcode wurde erfolgreich aktualisiert!")
+            return redirect('barcode_details', barcode_id=barcode.barcode)  # Zurück zur Detailansicht
+    else:
+        form = BarcodeelementForm(instance=barcode)
+    return render(request, 'devicemanagerapp/edit_barcode.html', {'form': form, 'barcode': barcode})
+
+
 def delete_barcode(request, barcode_id):
     barcode = get_object_or_404(Barcodeelement, barcode=barcode_id)
     if request.method == 'POST':

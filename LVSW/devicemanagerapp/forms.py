@@ -30,6 +30,10 @@ class GeraetetypForm(forms.ModelForm):
             'notizen': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Notizen'}),
         }
 
+    labels = {
+        'herstellerid': 'Hersteller',
+    }  
+
     def clean_modellbezeichnung(self):
         modellbezeichnung = self.cleaned_data.get('modellbezeichnung')
         if not modellbezeichnung:
@@ -64,3 +68,30 @@ class BarcodeelementForm(forms.ModelForm):
             'breite': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '500mm'}),
             'höhe': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '560mm'}),
         }
+
+class BarcodeelementForm2(forms.ModelForm):
+    class Meta:
+        model = Barcodeelement
+        fields = [
+            'kaufdatum', 'bemerkungen', 'istgruppe', 
+            'zustand', 'länge', 'breite', 'höhe'
+        ]
+        widgets = {
+            'kaufdatum': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'bemerkungen': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'zustand': forms.Select(attrs={'class': 'form-control'}),
+            'länge': forms.NumberInput(attrs={'class': 'form-control'}),
+            'breite': forms.NumberInput(attrs={'class': 'form-control'}),
+            'höhe': forms.NumberInput(attrs={'class': 'form-control'}),
+            'istgruppe': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
+    labels = {
+        'kaufdatum': 'Kaufdatum',
+        'bemerkungen': 'Bemerkungen',
+        'istgruppe': 'Ist Gruppe',
+        'zustand': 'Zustand',
+        'länge': 'Länge (cm)',
+        'breite': 'Breite (cm)',
+        'höhe': 'Höhe (cm)',
+    }
+

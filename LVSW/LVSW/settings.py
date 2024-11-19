@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rentalapp',
     'eventmanagerapp',
     'devicemanagerapp',
+    'customermanagementapp',
 ]
 
 MIDDLEWARE = [

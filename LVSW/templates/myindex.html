@@ -15,29 +15,48 @@
         <p class="text-center">Welcome to LVSW-Project!</p>
         <p class="text-center text-muted">Created by qwersumme in 2024</p>
 
-        <div class="col-md-4 mb-4">
-            <a href="{% url 'barcodes_liste' %}" class="btn btn-primary btn-block">Barcode</a>
+        <h1>Data-Management</h1>
+
+        <div class="row text-center mt-4">
+            <div class="col-md-4 mb-4">
+                <a href="{% url 'barcodes_liste' %}" class="btn btn-primary btn-block">Barcode</a>
+            </div>
+            <div class="col-md-4 mb-4">
+                <a href="{% url 'kunden_liste' %}" class="btn btn-primary btn-block">Customer</a>
+            </div>
         </div>
 
-        <h1>Debuging</h1>
+        <h1>Device-Management</h1>
+        <div class="row text-center mt-4"></div>
+            <div class="col-md-4 mb-4">
+                <a href="{% url 'select_status' %}" class="btn btn-primary btn-block">Set Barcodestates</a>
+            </div>
+        </div>
+        
+        <h1>Debugging</h1>
         <!-- Buttons Group -->
         <div class="row text-center mt-4">
             <!-- Manufacturers Section -->
-            <div class="col-md-4 mb-3">
+            <div class="col-md-3 mb-3">
                 <a href="{% url 'hersteller_liste' %}" class="btn btn-secondary btn-block">Manufacturers</a>
                 <a href="{% url 'hersteller_erstellen' %}" class="btn btn-outline-secondary btn-block mt-2">Create Manufacturer</a>
             </div>
             
             <!-- Devices Section -->
-            <div class="col-md-4 mb-3">
+            <div class="col-md-3 mb-3">
                 <a href="{% url 'geraete_liste' %}" class="btn btn-secondary btn-block">Devices</a>
                 <a href="{% url 'suche_hersteller' %}" class="btn btn-outline-secondary btn-block mt-2">Create Device</a>
             </div>
 
-            <div class="col-md-4 mb-3">
+            <div class="col-md-3 mb-3">
                 <a href="{% url 'barcodes_liste' %}" class="btn btn-secondary btn-block">BarcodesListe</a>
                 <a href="{% url 'generate_barcodes' 2 %}" class="btn btn-outline-secondary btn-block mt-2">Create Barcode</a>
                 <a href="{% url 'select_status'%}" class="btn btn-outline-secondary btn-block mt-2">Set States on Barcodes</a>
+            </div>
+            
+            <div class="col-md-3 mb-3">
+                <a href="{% url 'kunden_liste' %}" class="btn btn-secondary btn-block">Customer List</a>
+                <a href="{% url 'kunde_erstellen' %}" class="btn btn-outline-secondary btn-block mt-2">Create Customer</a>
             </div>
             
             

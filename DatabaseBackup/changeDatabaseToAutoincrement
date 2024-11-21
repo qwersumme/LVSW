@@ -2,3 +2,9 @@ ALTER TABLE Events DROP FOREIGN KEY Events_ibfk_2;
 ALTER TABLE Kunde ADD PRIMARY KEY (KundenID);
 ALTER TABLE Kunde MODIFY COLUMN KundenID INT AUTO_INCREMENT;
 ALTER TABLE Events ADD CONSTRAINT Events_ibfk_2 FOREIGN KEY (KundenID) REFERENCES Kunde(KundenID);
+
+#1833 - Cannot change column 'EventID': used in a foreign key constraint 'Barcode_Event_ibfk_2' of table 'LVDB2.Barcode_Event'
+
+ALTER TABLE Barcode_Event DROP FOREIGN KEY Barcode_Event_ibfk_2;
+ALTER TABLE Events MODIFY COLUMN EventID INT AUTO_INCREMENT;
+ALTER TABLE Barcode_Event ADD CONSTRAINT Barcode_Event_ibfk_2 FOREIGN KEY (EventID) REFERENCES Events(EventID);

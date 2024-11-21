@@ -7,6 +7,14 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Optional: Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.3/font/bootstrap-icons.min.css">
+    <style>
+        /* Anpassung der Größe von Barcode-Bildern */
+        .barcode-img {
+            max-width: 100px; /* Passe die Breite an */
+            max-height: 50px; /* Passe die Höhe an */
+            object-fit: contain; /* Bild proportional skalieren */
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-5">
@@ -56,51 +64,70 @@
         </div>
 
         <!-- Tabelle der Barcodes -->
-        <div class="card shadow">
-            <div class="card-body">
-                <table class="table table-striped">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>Barcode</th>
-                            <th>Hersteller</th>
-                            <th>Modellbezeichnung</th>
-                            <th>Kategorie</th>
-                            <th>Kaufdatum</th>
-                            <th>Zustand</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for barcode in barcodes %}
-                        <tr>
-                            <td>{{ barcode.barcode }}</td>
-                            <td>{{ barcode.geraetetypid.herstellerid }}</td>
-                            <td>{{ barcode.geraetetypid.modellbezeichnung }}</td>
-                            <td>{{ barcode.geraetetypid.kategorie }}</td>
-                            <td>{{ barcode.kaufdatum|date:"d.m.Y" }}</td>
-                            <td>{{ barcode.zustand }}</td>
-                            <td>
-                                <a href="{% url 'barcode_details' barcode.barcode %}" class="btn btn-sm btn-outline-info">
-                                    <i class="bi bi-info-circle"></i> Details
-                                </a>
-                            </td>
-                            <td>
-                                <form method="post" action="{% url 'delete_barcode' barcode.barcode %}" style="display:inline;">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-sm btn-danger">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td colspan="5" class="text-center text-muted">Keine Barcodes gefunden.</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+        <form method="post" action="{% url 'show_selected_barcodes' %}">
+            {% csrf_token %} 
+            <div class="card shadow">
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th><input type="checkbox" id="select-all"></th>
+                                <th>Barcode</th>
+                                <th>Nummer</th>
+                                <th>Hersteller</th>
+                                <th>Modellbezeichnung</th>
+                                <th>Kategorie</th>
+                                <th>Kaufdatum</th>
+                                <th>Zustand</th>
+                                <th>Aktionen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for barcode in barcodes %}
+                            <tr>
+                                <td><input type="checkbox" name="selected_barcodes" value="{{ barcode.barcode }}"></td>
+                                <td>
+                                    <img src="{% url 'barcode' barcode.barcode %}" alt="Barcode" class="barcode-img">
+                                </td>
+                                <td>{{ barcode.barcode }}</td>
+                                <td>{{ barcode.geraetetypid.herstellerid }}</td>
+                                <td>{{ barcode.geraetetypid.modellbezeichnung }}</td>
+                                <td>{{ barcode.geraetetypid.kategorie }}</td>
+                                <td>{{ barcode.kaufdatum|date:"d.m.Y" }}</td>
+                                <td>{{ barcode.zustand }}</td>
+                                <td>
+                                    <a href="{% url 'barcode_details' barcode.barcode %}" class="btn btn-sm btn-outline-info">
+                                        <i class="bi bi-info-circle"></i>
+                                    </a>
+                                    <form method="post" action="{% url 'delete_barcode' barcode.barcode %}" style="display:inline;">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-sm btn-danger">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="7" class="text-center text-muted">Keine Barcodes gefunden.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Ausgewählte anzeigen</button>
             </div>
-        </div>
+        </form>
     </div>
 </body>
 </html>
+
+<script>
+    // "Alle auswählen"-Funktionalität
+    document.getElementById('select-all').addEventListener('change', function() {
+        const checkboxes = document.querySelectorAll('input[name="selected_barcodes"]');
+        for (const checkbox of checkboxes) {
+            checkbox.checked = this.checked;
+        }
+    });
+</script>

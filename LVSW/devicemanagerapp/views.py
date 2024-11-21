@@ -3,6 +3,10 @@ from django.contrib import messages
 from django.db.models import Q
 from .forms import HerstellerForm, GeraetetypForm, BarcodeelementForm, ZustandSelectionForm, BarcodeSingleInputForm
 from .models import Hersteller_view, Geraetetyp, Hersteller, Barcodeelement
+from django.http import HttpResponse
+from io import BytesIO
+import barcode
+from barcode.writer import ImageWriter
 
 # Create your views here.
 
@@ -227,3 +231,32 @@ def update_status(request):
         'form': form,
         'selected_zustand': selected_zustand
     })
+
+def barcode_view(request, number):
+    """
+    Django-Ansicht, die einen Barcode ausgibt.
+
+    Args:
+        request: HTTP-Anfrage.
+        number (str): Nummer, die als Barcode angezeigt wird.
+
+    Returns:
+        HttpResponse: Barcode-Bild als HTTP-Antwort.
+    """
+    try:
+        # Generiere den Barcode in einen Speicher
+        buffer = BytesIO()
+        code39 = barcode.get('code39', str(number), writer=ImageWriter())
+        code39.write(buffer)
+
+        # Rückgabe als Bild
+        return HttpResponse(buffer.getvalue(), content_type='image/png')
+    except Exception as e:
+        return HttpResponse(f"Fehler: {e}", status=400)
+
+def show_selected_barcodes(request):
+    if request.method == 'POST':
+        selected_barcodes = request.POST.getlist('selected_barcodes')  # Liste der ausgewählten Barcodes abrufen
+        barcodes = Barcodeelement.objects.filter(barcode__in=selected_barcodes)
+        return render(request, 'devicemanagerapp/show_selected_barcodes.html', {'barcodes': barcodes})
+    return render(request, 'devicemanagerapp/show_selected_barcodes.html', {'barcodes': []})

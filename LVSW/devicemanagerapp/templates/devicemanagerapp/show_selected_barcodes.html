@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Ausgewählte Barcodes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Ausgewählte Barcodes</h1>
+        <div class="card shadow mt-4">
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Barcode</th>
+                            <th>Hersteller</th>
+                            <th>Modellbezeichnung</th>
+                            <th>Kategorie</th>
+                            <th>Kaufdatum</th>
+                            <th>Zustand</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for barcode in barcodes %}
+                        <tr>
+                            <td><img src="{% url 'barcode' barcode.barcode %}" alt="Barcode" class="barcode-img"></td>
+                            <td>{{ barcode.geraetetypid.herstellerid }}</td>
+                            <td>{{ barcode.geraetetypid.modellbezeichnung }}</td>
+                            <td>{{ barcode.geraetetypid.kategorie }}</td>
+                            <td>{{ barcode.kaufdatum|date:"d.m.Y" }}</td>
+                            <td>{{ barcode.zustand }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center">Keine Barcodes ausgewählt.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <a href="{% url 'barcodes_liste' %}" class="btn btn-outline-secondary mt-3">Zurück zur Liste</a>
+    </div>
+</body>
+</html>

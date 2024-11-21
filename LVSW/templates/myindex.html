@@ -1,4 +1,3 @@
-<!-- myindex.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,65 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LVSW PROJECT v1.0</title>
     {% load static %}
-    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" >
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="text-center">Welcome</h1>
-        <p class="text-center">Welcome to LVSW-Project!</p>
-        <p class="text-center text-muted">Created by qwersumme in 2024</p>
-
-        <h1>Data-Management</h1>
-
-        <div class="row text-center mt-4">
-            <div class="col-md-4 mb-4">
-                <a href="{% url 'barcodes_liste' %}" class="btn btn-primary btn-block">Barcode</a>
-            </div>
-            <div class="col-md-4 mb-4">
-                <a href="{% url 'kunden_liste' %}" class="btn btn-primary btn-block">Customer</a>
-            </div>
+        <!-- Header Section -->
+        <div class="text-center mb-5">
+            <h1>Welcome</h1>
+            <p class="lead">Welcome to LVSW-Project!</p>
+            <p class="text-muted">Created by qwersumme in 2024</p>
         </div>
 
-        <h1>Device-Management</h1>
-        <div class="row text-center mt-4"></div>
-            <div class="col-md-4 mb-4">
-                <a href="{% url 'select_status' %}" class="btn btn-primary btn-block">Set Barcodestates</a>
+        <!-- Data-Management Section -->
+        <section class="mb-5">
+            <h2>Data Management</h2>
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <a href="{% url 'barcodes_liste' %}" class="btn btn-primary btn-lg btn-block">Barcode</a>
+                </div>
+                <div class="col-md-6">
+                    <a href="{% url 'kunden_liste' %}" class="btn btn-primary btn-lg btn-block">Customer</a>
+                </div>
             </div>
-        </div>
-        
-        <h1>Debugging</h1>
-        <!-- Buttons Group -->
-        <div class="row text-center mt-4">
-            <!-- Manufacturers Section -->
-            <div class="col-md-3 mb-3">
-                <a href="{% url 'hersteller_liste' %}" class="btn btn-secondary btn-block">Manufacturers</a>
-                <a href="{% url 'hersteller_erstellen' %}" class="btn btn-outline-secondary btn-block mt-2">Create Manufacturer</a>
-            </div>
-            
-            <!-- Devices Section -->
-            <div class="col-md-3 mb-3">
-                <a href="{% url 'geraete_liste' %}" class="btn btn-secondary btn-block">Devices</a>
-                <a href="{% url 'suche_hersteller' %}" class="btn btn-outline-secondary btn-block mt-2">Create Device</a>
-            </div>
+        </section>
 
-            <div class="col-md-3 mb-3">
-                <a href="{% url 'barcodes_liste' %}" class="btn btn-secondary btn-block">BarcodesListe</a>
-                <a href="{% url 'generate_barcodes' 2 %}" class="btn btn-outline-secondary btn-block mt-2">Create Barcode</a>
-                <a href="{% url 'select_status'%}" class="btn btn-outline-secondary btn-block mt-2">Set States on Barcodes</a>
+        <!-- Device-Management Section -->
+        <section class="mb-5">
+            <h2>Device Management</h2>
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <a href="{% url 'select_status' %}" class="btn btn-primary btn-lg btn-block">Set Barcodestates</a>
+                </div>
             </div>
-            
-            <div class="col-md-3 mb-3">
-                <a href="{% url 'kunden_liste' %}" class="btn btn-secondary btn-block">Customer List</a>
-                <a href="{% url 'kunde_erstellen' %}" class="btn btn-outline-secondary btn-block mt-2">Create Customer</a>
-            </div>
-            
-            
+        </section>
 
-            
-            <!-- Add more sections if needed -->
-        </div>
+        <!-- Debugging Section -->
+        <section class="mb-5">
+            <h2>Debugging</h2>
+            <div class="row mt-4">
+                <!-- Manufacturers Section -->
+                <div class="col-md-3 mb-3">
+                    <h5>Manufacturers</h5>
+                    <a href="{% url 'hersteller_liste' %}" class="btn btn-secondary btn-block">View All</a>
+                    <a href="{% url 'hersteller_erstellen' %}" class="btn btn-outline-secondary btn-block mt-2">Create</a>
+                </div>
+
+                <!-- Devices Section -->
+                <div class="col-md-3 mb-3">
+                    <h5>Devices</h5>
+                    <a href="{% url 'geraete_liste' %}" class="btn btn-secondary btn-block">View All</a>
+                    <a href="{% url 'suche_hersteller' %}" class="btn btn-outline-secondary btn-block mt-2">Create</a>
+                </div>
+
+                <!-- Barcodes Section -->
+                <div class="col-md-3 mb-3">
+                    <h5>Barcodes</h5>
+                    <a href="{% url 'barcodes_liste' %}" class="btn btn-secondary btn-block">View All</a>
+                    <a href="{% url 'generate_barcodes' 2 %}" class="btn btn-outline-secondary btn-block mt-2">Create</a>
+                    <a href="{% url 'select_status' %}" class="btn btn-outline-secondary btn-block mt-2">Set States</a>
+                </div>
+
+                <!-- Customers Section -->
+                <div class="col-md-3 mb-3">
+                    <h5>Customers</h5>
+                    <a href="{% url 'kunden_liste' %}" class="btn btn-secondary btn-block">View All</a>
+                    <a href="{% url 'kunde_erstellen' %}" class="btn btn-outline-secondary btn-block mt-2">Create</a>
+                </div>
+            </div>
+        </section>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-

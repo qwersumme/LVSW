@@ -7,39 +7,30 @@
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="text-center">Ausgewählte Barcodes</h1>
-        <div class="card shadow mt-4">
-            <div class="card-body">
-                <table class="table table-striped">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>Barcode</th>
-                            <th>Hersteller</th>
-                            <th>Modellbezeichnung</th>
-                            <th>Kategorie</th>
-                            <th>Kaufdatum</th>
-                            <th>Zustand</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for barcode in barcodes %}
-                        <tr>
-                            <td><img src="{% url 'barcode' barcode.barcode %}" alt="Barcode" class="barcode-img"></td>
-                            <td>{{ barcode.geraetetypid.herstellerid }}</td>
-                            <td>{{ barcode.geraetetypid.modellbezeichnung }}</td>
-                            <td>{{ barcode.geraetetypid.kategorie }}</td>
-                            <td>{{ barcode.kaufdatum|date:"d.m.Y" }}</td>
-                            <td>{{ barcode.zustand }}</td>
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td colspan="6" class="text-center">Keine Barcodes ausgewählt.</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+        <a href="{% url 'barcodes_liste' %}" class="btn btn-outline-secondary mb-3">Zurück zur Liste</a>
+        <h1 class="text-center mb-4">Ausgewählte Barcodes</h1>
+
+        <div class="card shadow p-4">
+            {% for barcode in barcodes %}
+            <div class="row mb-4 align-items-center border-bottom pb-3">
+                <!-- Barcode-Bild -->
+                <div class="col-md-3 text-center">
+                    <img src="{% url 'barcode' barcode.barcode %}" alt="Barcode" class="img-fluid" style="max-height: 150px;">
+                </div>
+
+                <!-- Barcode-Informationen -->
+                <div class="col-md-9">
+                    <p><strong>ID:</strong> {{ barcode.barcode }}</p>
+                    <p><strong>Hersteller:</strong> {{ barcode.geraetetypid.herstellerid }}</p>
+                    <p><strong>Modellbezeichnung:</strong> {{ barcode.geraetetypid.modellbezeichnung }}</p>
+                    <p><strong>Kategorie:</strong> {{ barcode.geraetetypid.kategorie }}</p>
+                </div>
             </div>
+            {% empty %}
+            <p class="text-center text-muted">Keine Barcodes ausgewählt.</p>
+            {% endfor %}
         </div>
+
         <a href="{% url 'barcodes_liste' %}" class="btn btn-outline-secondary mt-3">Zurück zur Liste</a>
     </div>
 </body>

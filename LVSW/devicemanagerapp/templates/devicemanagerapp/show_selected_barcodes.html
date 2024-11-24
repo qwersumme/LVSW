@@ -6,20 +6,26 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container mt-5">
-        <a href="{% url 'barcodes_liste' %}" class="btn btn-outline-secondary mb-3">Zurück zur Liste</a>
+    <div class="container-fluid mt-5">
+        <!-- Zurück zur Liste -->
+        <div class="mb-3">
+            <a href="{% url 'barcodes_liste' %}" class="btn btn-outline-secondary">Zurück zur Liste</a>
+        </div>
+
+        <!-- Überschrift -->
         <h1 class="text-center mb-4">Ausgewählte Barcodes</h1>
 
+        <!-- Barcodes -->
         <div class="card shadow p-4">
             {% for barcode in barcodes %}
             <div class="row mb-4 align-items-center border-bottom pb-3">
                 <!-- Barcode-Bild -->
-                <div class="col-md-3 text-center">
+                <div class="col-6 col-md-3 text-center mb-3 mb-md-0">
                     <img src="{% url 'barcode' barcode.barcode %}" alt="Barcode" class="img-fluid" style="max-height: 150px;">
                 </div>
 
                 <!-- Barcode-Informationen -->
-                <div class="col-md-9">
+                <div class="col-6 col-md-3">
                     <p><strong>ID:</strong> {{ barcode.barcode }}</p>
                     <p><strong>Hersteller:</strong> {{ barcode.geraetetypid.herstellerid }}</p>
                     <p><strong>Modellbezeichnung:</strong> {{ barcode.geraetetypid.modellbezeichnung }}</p>
@@ -31,7 +37,10 @@
             {% endfor %}
         </div>
 
-        <a href="{% url 'barcodes_liste' %}" class="btn btn-outline-secondary mt-3">Zurück zur Liste</a>
+        <!-- Zurück zur Liste -->
+        <div class="mt-3">
+            <a href="{% url 'barcodes_liste' %}" class="btn btn-outline-secondary">Zurück zur Liste</a>
+        </div>
     </div>
 </body>
 </html>

@@ -12,14 +12,14 @@
     <div class="container mt-5">
         <!-- Header Section -->
         <div class="text-center mb-5">
-            <h1>Welcome</h1>
-            <p class="lead">Welcome to LVSW-Project!</p>
-            <p class="text-muted">Created by qwersumme in 2024</p>
+            <h1>Willkommen</h1>
+            <p class="lead">Willkimmen zum LVSW-Project!</p>
+            <p class="text-muted">Erstellt von qwersumme in 2024</p>
         </div>
 
         <!-- Data-Management Section -->
         <section class="mb-5">
-            <h2>Data Management</h2>
+            <h2>Daten Management</h2>
             <div class="row mt-4">
                 <div class="col-md-6">
                     <a href="{% url 'barcodes_liste' %}" class="btn btn-primary btn-lg btn-block">Barcode</a>
@@ -32,10 +32,10 @@
 
         <!-- Device-Management Section -->
         <section class="mb-5">
-            <h2>Device Management</h2>
+            <h2>Ger&auml;te Management</h2>
             <div class="row mt-4">
                 <div class="col-md-6">
-                    <a href="{% url 'select_status' %}" class="btn btn-primary btn-lg btn-block">Set Barcodestates</a>
+                    <a href="{% url 'select_status' %}" class="btn btn-primary btn-lg btn-block">Barcodestaten setzen</a>
                 </div>
             </div>
         </section>
@@ -46,31 +46,31 @@
             <div class="row mt-4">
                 <!-- Manufacturers Section -->
                 <div class="col-md-3 mb-3">
-                    <h5>Manufacturers</h5>
-                    <a href="{% url 'hersteller_liste' %}" class="btn btn-secondary btn-block">View All</a>
-                    <a href="{% url 'hersteller_erstellen' %}" class="btn btn-outline-secondary btn-block mt-2">Create</a>
+                    <h5>Hersteller</h5>
+                    <a href="{% url 'hersteller_liste' %}" class="btn btn-secondary btn-block">Liste</a>
+                    <a href="{% url 'hersteller_erstellen' %}" class="btn btn-outline-secondary btn-block mt-2">Erstellen</a>
                 </div>
 
                 <!-- Devices Section -->
                 <div class="col-md-3 mb-3">
                     <h5>Devices</h5>
-                    <a href="{% url 'geraete_liste' %}" class="btn btn-secondary btn-block">View All</a>
-                    <a href="{% url 'suche_hersteller' %}" class="btn btn-outline-secondary btn-block mt-2">Create</a>
+                    <a href="{% url 'geraete_liste' %}" class="btn btn-secondary btn-block">Liste</a>
+                    <a href="{% url 'suche_hersteller' %}" class="btn btn-outline-secondary btn-block mt-2">Erstellen</a>
                 </div>
 
                 <!-- Barcodes Section -->
                 <div class="col-md-3 mb-3">
                     <h5>Barcodes</h5>
-                    <a href="{% url 'barcodes_liste' %}" class="btn btn-secondary btn-block">View All</a>
-                    <a href="{% url 'generate_barcodes' 2 %}" class="btn btn-outline-secondary btn-block mt-2">Create</a>
-                    <a href="{% url 'select_status' %}" class="btn btn-outline-secondary btn-block mt-2">Set States</a>
+                    <a href="{% url 'barcodes_liste' %}" class="btn btn-secondary btn-block">Liste</a>
+                    <a href="{% url 'generate_barcodes' 2 %}" class="btn btn-outline-secondary btn-block mt-2">Erstellen</a>
+                    <a href="{% url 'select_status' %}" class="btn btn-outline-secondary btn-block mt-2">Status festlegen</a>
                 </div>
 
                 <!-- Customers Section -->
                 <div class="col-md-3 mb-3">
-                    <h5>Customers</h5>
-                    <a href="{% url 'kunden_liste' %}" class="btn btn-secondary btn-block">View All</a>
-                    <a href="{% url 'kunde_erstellen' %}" class="btn btn-outline-secondary btn-block mt-2">Create</a>
+                    <h5>Kunden</h5>
+                    <a href="{% url 'kunden_liste' %}" class="btn btn-secondary btn-block">Liste</a>
+                    <a href="{% url 'kunde_erstellen' %}" class="btn btn-outline-secondary btn-block mt-2">Erstellen</a>
                 </div>
             </div>
         </section>

@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.db.models import Q
-from .forms import HerstellerForm, GeraetetypForm, BarcodeelementForm, ZustandSelectionForm, BarcodeSingleInputForm
-from .models import Hersteller_view, Geraetetyp, Hersteller, Barcodeelement
+from .forms import HerstellerForm, GeraetetypForm, BarcodeelementForm, ZustandSelectionForm, BarcodeSingleInputForm, GruppeForm
+from .models import Hersteller_view, Geraetetyp, Hersteller, Barcodeelement, Gruppe
 from django.http import HttpResponse
 from io import BytesIO
 import barcode
@@ -255,6 +255,13 @@ def barcode_view(request, number):
         return HttpResponse(f"Fehler: {e}", status=400)
 
 def show_selected_barcodes(request):
+    if request.method == 'POST':
+        selected_barcodes = request.POST.getlist('selected_barcodes')  # Liste der ausgewählten Barcodes abrufen
+        barcodes = Barcodeelement.objects.filter(barcode__in=selected_barcodes)
+        return render(request, 'devicemanagerapp/show_selected_barcodes.html', {'barcodes': barcodes})
+    return render(request, 'devicemanagerapp/show_selected_barcodes.html', {'barcodes': []})
+
+def select_group_from_barcode(request):
     if request.method == 'POST':
         selected_barcodes = request.POST.getlist('selected_barcodes')  # Liste der ausgewählten Barcodes abrufen
         barcodes = Barcodeelement.objects.filter(barcode__in=selected_barcodes)

@@ -8,9 +8,12 @@
 </head>
 <body>
     <div class="container mt-5">
+        <div class="mt-4 text-left">
+            <a href="{% url 'mainindex' %}" class="btn btn-outline-secondary">Startseite</a>
+        </div>
         <div class="card shadow">
             <div class="card-header bg-primary text-white text-center">
-                <h2>Neuen Hersteller erstellen</h2>
+                <h2>Neues Ger&auml;t erstellen</h2>
             </div>
             <div class="card-body">
                 <!-- Erfolgsmeldungen -->
@@ -29,17 +32,13 @@
                         {{ form.as_p }}  <!-- Alle Felder werden sauber gerendert -->
                     </div>
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary btn-lg">Erstellen</button>
+                        <button type="submit" class="btn btn-success ">Erstellen</button>
+                        <a href="{% url 'suche_hersteller' %}" class="btn btn-outline-danger">Abbrechen</a>
                     </div>
                 </form>
             </div>
         </div>
-
-        <!-- Zurück-Button -->
-        <div class="mt-4 text-center">
-            <a href="{% url 'mainindex' %}" class="btn btn-outline-secondary">Startseite</a>
-            <a href="{% url 'suche_hersteller' %}" class="btn btn-secondary">Herstellerauswahl</a>
-        </div>
+        
     </div>
 </body>
 </html>

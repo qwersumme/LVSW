@@ -1,5 +1,5 @@
 from django import forms
-from .models import Hersteller, Geraetetyp, Barcodeelement
+from .models import Hersteller, Geraetetyp, Barcodeelement, Gruppe
 
 class HerstellerForm(forms.ModelForm):
     class Meta:
@@ -118,4 +118,15 @@ class BarcodeSingleInputForm(forms.Form):
         label="Barcode"
     )
 
+class GruppeForm(forms.Form):
+    gruppen_barcode = forms.ModelChoiceField(
+        queryset=Barcodeelement.objects.all(),
+        label="Gruppen-Barcode",
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+    barcodes = forms.ModelMultipleChoiceField(
+        queryset=Barcodeelement.objects.all(),
+        label="Barcodes zur Gruppe hinzufügen",
+        widget=forms.CheckboxSelectMultiple
+    )
 

@@ -113,6 +113,28 @@ class Geraetetyp(models.Model):
         managed = False
         db_table = 'Geraetetyp'
 
+class Gruppe(models.Model):
+    gruppen_barcode = models.ForeignKey(
+        Barcodeelement,
+        on_delete=models.CASCADE,
+        related_name='gruppen_as_gruppenbarcode',
+        db_column='GruppenBarcode'
+    )
+    barcode = models.ForeignKey(
+        Barcodeelement,
+        on_delete=models.CASCADE,
+        related_name='gruppen_as_barcode',
+        db_column='Barcode'
+    )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['gruppen_barcode', 'barcode'], name='unique_gruppen_relation')
+        ]
+
+    def __str__(self):
+        return f"Gruppe {self.gruppen_barcode.barcode} enthält Barcode {self.barcode.barcode}"
+
 
 class Hersteller(models.Model):
     #herstellerid = models.IntegerField(db_column='HerstellerID', primary_key=True)  # Field name made lowercase.

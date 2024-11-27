@@ -23,5 +23,5 @@ urlpatterns = [
     path('barcode/<str:number>/', views.barcode_view, name='barcode'),
     path('selected-barcodes/', views.show_selected_barcodes, name='show_selected_barcodes'),
     path('erstelle-gruppe/', views.gruppe_erstellen, name="create_group1"),
-    path('erstelle-gruppen-barcode/<str:string>', views.generate_barcode_for_group, name="create_group2"),
+    path('erstelle-gruppen-barcode/<str:name>/', views.generate_barcode_for_group, name="create_group2"),
 ]

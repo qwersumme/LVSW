@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.db.models import Q
+from django.urls import reverse
 from .forms import HerstellerForm, GeraetetypForm, BarcodeelementForm, ZustandSelectionForm, BarcodeSingleInputForm, GruppeForm, GruppenErstellForm
 #from .forms import *
 from .models import Hersteller_view, Geraetetyp, Hersteller, Barcodeelement, Gruppe
@@ -272,51 +273,68 @@ def select_group_from_barcode(request):
 def gruppe_erstellen(request):
     if request.method == 'POST':
         form = GruppenErstellForm(request.POST)
-        if form.is_valid():
-            name = form.cleaned_data['name']
-            return redirect('create_group2', name=name)
-    else:
-        form = GruppenErstellForm()
+        name = request.POST.get('name', '').strip()
+        if name:
+            return redirect(reverse('create_group2', kwargs={'name':name}))
+        
+    
+#        if form.is_valid():
+#            name = form.cleaned_data['name']
+#            return redirect('create_group2', name=name)
+#    else:
+#        form = GruppenErstellForm()
     
     # Render das Template und übergebe die previous_url
-    return render(request, 'devicemanagerapp/gruppe_erstellen.html', {'form': form})
+    return render(request, 'devicemanagerapp/gruppe_erstellen.html')
 
-def generate_barcode_for_group(request, geraetetypid):
-    # TODO
-    geraetetyp = get_object_or_404(Geraetetyp, geraetetypid=geraetetypid)
+def generate_barcode_for_group(request, name):
 
     if request.method == 'POST':
-        form = BarcodeelementForm(request.POST)
-        try:
-            # Anzahl der Barcodeelemente aus dem Formular abrufen
-            anzahl = int(1)
-        except ValueError:
-            messages.error(request, "Bitte geben Sie eine gültige Anzahl ein.")
-            return redirect(request.path)
-
+        form = GruppeForm(request.POST)
         if form.is_valid():
-            # Barcodeelemente erstellen
-            barcode = Barcodeelement(
-
-                kaufdatum=form.cleaned_data.get('kaufdatum'),
-                bemerkungen=form.cleaned_data.get('bemerkungen'),
-                zustand=form.cleaned_data.get('zustand'),
-                länge=form.cleaned_data.get('länge'),
-                breite=form.cleaned_data.get('breite'),
-                höhe=form.cleaned_data.get('höhe'),
-                istgruppe=1  # `istgruppe` immer False setzen
-            )
+            barcode = form.save(commit = False)
+            barcode.name = name # name aus URL übernehmen
             barcode.save()
-                
-
-            messages.success(request, f"{anzahl} Barcodeelemente erfolgreich erstellt!")
-            return redirect('geraete_liste')  # Weiterleitung zur Geräte-Liste
-        else:
-            messages.error(request, "Es gab ein Problem mit den eingegebenen Daten.")
+            return redirect('create_group2', name=name)
     else:
-        form = BarcodeelementForm()
+        form = GruppeForm()
 
-    return render(request, 'devicemanagerapp/generate_barcode.html', {
-        'form': form,
-        'geraetetyp': geraetetyp,
-    })
+    return render(request, 'devicemanagerapp/generate_barcode_for_group.html', {'form':form, 'name':name})
+
+    # TODO
+    # geraetetyp = get_object_or_404(Geraetetyp, geraetetypid=geraetetypid)
+
+#    if request.method == 'POST':
+#        form = BarcodeelementForm(request.POST)
+#        try:
+#            # Anzahl der Barcodeelemente aus dem Formular abrufen
+#            anzahl = int(1)
+#        except ValueError:
+#            messages.error(request, "Bitte geben Sie eine gültige Anzahl ein.")
+#            return redirect(request.path)
+
+#        if form.is_valid():
+#            # Barcodeelemente erstellen
+#            barcode = Barcodeelement(
+
+#                kaufdatum=form.cleaned_data.get('kaufdatum'),
+#                bemerkungen=form.cleaned_data.get('bemerkungen'),
+#                zustand=form.cleaned_data.get('zustand'),
+#                länge=form.cleaned_data.get('länge'),
+#                breite=form.cleaned_data.get('breite'),
+#                höhe=form.cleaned_data.get('höhe'),
+#                istgruppe=1  # `istgruppe` immer False setzen
+#            )
+#            barcode.save()
+#                
+#
+#            messages.success(request, f"{anzahl} Barcodeelemente erfolgreich erstellt!")
+#            return redirect('geraete_liste')  # Weiterleitung zur Geräte-Liste
+#        else:
+#            messages.error(request, "Es gab ein Problem mit den eingegebenen Daten.")
+#   else:
+#        form = BarcodeelementForm()
+
+    #return render(request, 'devicemanagerapp/generate_barcode_for_group.html', {
+    #    'form': form,
+    #})

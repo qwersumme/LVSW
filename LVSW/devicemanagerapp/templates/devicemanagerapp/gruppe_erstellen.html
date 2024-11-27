@@ -23,12 +23,22 @@
                 </div>
             {% endfor %}
         {% endif %}
-        <form method="post">
+        <!--<form method="post">
             {% csrf_token %}
             {{ form.name.label_tag }}
                 {{ form.name }}
             <button type="submit" class="btn btn-primary">Erstellen</button>
+        </form> -->
+
+        <form method="post" class="mt-4">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="name" class="form-label">Name:</label>
+                <input type="text" id="name" name="name" class="form-control" placeholder="Name eingeben">
+            </div>
+            <button type="submit" class="btn btn-primary">Weiter</button>
         </form>
+
     </div>
 </body>
 </html>

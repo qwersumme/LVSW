@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Gruppe erstellen</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Zurück-Button -->
+        {% if previous_url %}
+            <a href="{% url 'suche_hersteller'%}" class="btn btn-outline-secondary mt-3">Zurück</a>
+            <!-- <a href="{{ previous_url }}" class="btn btn-outline-secondary mt-3">Zurück</a> -->
+        {% else %}
+            <a href="{% url 'mainindex' %}" class="btn btn-outline-secondary mt-3">Startseite</a>
+        {% endif %}
+
+        <h1 class="mt-5">Neue Gruppe erstellen</h1>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.name.label_tag }}
+                {{ form.name }}
+            <button type="submit" class="btn btn-primary">Erstellen</button>
+        </form>
+    </div>
+</body>
+</html>

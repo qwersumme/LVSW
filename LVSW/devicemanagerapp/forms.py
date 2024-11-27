@@ -60,7 +60,9 @@ class BarcodeelementForm(forms.ModelForm):
         model = Barcodeelement
         fields = ['kaufdatum', 'bemerkungen', 'zustand', 'länge', 'breite', 'höhe']
         widgets = {
-            'kaufdatum': forms.DateInput(attrs={'class': 'form-control', 'placeholder':'mm/dd/yyyy'}),
+            'kaufdatum': forms.DateInput(
+                format='%d.%m.%Y', 
+                attrs={'class': 'form-control', 'placeholder':'mm/dd/yyyy'}),
             'bemerkungen': forms.Textarea(attrs={'class': 'form-control','rows': 3, 'placeholder': 'Notizen'}),
             'zustand': forms.Select(attrs={'class': 'form-control'}),
             'länge': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '610mm'}),
@@ -76,8 +78,9 @@ class BarcodeelementForm2(forms.ModelForm):
             'kaufdatum', 'bemerkungen', 'istgruppe', 
             'zustand', 'länge', 'breite', 'höhe'
         ]
+        input_formats=['%d.%m.%Y']
         widgets = {
-            'kaufdatum': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'kaufdatum': forms.DateInput(format='%d.%m.%y', attrs={'type': 'date', 'class': 'form-control'}),
             'bemerkungen': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
             'zustand': forms.Select(attrs={'class': 'form-control'}),
             'länge': forms.NumberInput(attrs={'class': 'form-control'}),
@@ -130,3 +133,9 @@ class GruppeForm(forms.Form):
         widget=forms.CheckboxSelectMultiple
     )
 
+class GruppenErstellForm(forms.Form):
+    name = forms.CharField(
+    max_length=100,
+    widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Name eingeben'}),
+    label="Name"
+    )

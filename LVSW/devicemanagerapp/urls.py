@@ -1,7 +1,6 @@
 # devicemanagerapp/urls.py
 from django.urls import path, include
 from . import views
-from .views import barcode_view
 
 
 urlpatterns = [
@@ -21,6 +20,8 @@ urlpatterns = [
     path('edit-barcode/<int:barcode_id>/', views.edit_barcode, name='edit_barcode'),
     path('select-status/', views.select_status, name='select_status'),
     path('update-status/', views.update_status, name='update_status'),
-    path('barcode/<str:number>/', barcode_view, name='barcode'),
+    path('barcode/<str:number>/', views.barcode_view, name='barcode'),
     path('selected-barcodes/', views.show_selected_barcodes, name='show_selected_barcodes'),
+    path('erstelle-gruppe/', views.gruppe_erstellen, name="create_group1"),
+    path('erstelle-gruppen-barcode/<str:string>', views.generate_barcode_for_group, name="create_group2"),
 ]

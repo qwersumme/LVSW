@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barcode Suche</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Barcode Suche</h1>
+        <input type="text" id="search-input" class="form-control mt-4" placeholder="Barcode suchen...">
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Barcode</th>
+                    <th>Hersteller</th>
+                    <th>Modellbezeichnung</th>
+                    <th>Zustand</th>
+                </tr>
+            </thead>
+            <tbody id="results-table">
+                <!-- Ergebnisse werden hier geladen -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.getElementById('search-input').addEventListener('input', function() {
+            const query = this.value;  // Hole den eingegebenen Wert
+            const resultsTable = document.getElementById('results-table');
+
+            fetch(`/ajax/search/?q=${query}`)
+                .then(response => response.json())
+                .then(data => {
+                    resultsTable.innerHTML = '';  // Lösche alte Ergebnisse
+                    if (data.length > 0) {
+                        data.forEach(item => {
+                            const row = `
+                                <tr>
+                                    <td>${item.barcode}</td>
+                                    <td>${item.geraetetypid__herstellerid}</td>
+                                    <td>${item.geraetetypid__modellbezeichnung}</td>
+                                    <td>${item.zustand}</td>
+                                </tr>`;
+                            resultsTable.innerHTML += row;  // Füge neue Ergebnisse hinzu
+                        });
+                    } else {
+                        resultsTable.innerHTML = '<tr><td colspan="4" class="text-center">Keine Ergebnisse gefunden.</td></tr>';
+                    }
+                });
+        });
+    </script>
+</body>
+</html>

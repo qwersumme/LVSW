@@ -74,6 +74,7 @@
                                 <th><input type="checkbox" id="select-all"></th>
                                 <th>Barcode</th>
                                 <th>Nummer</th>
+                                <th>Bezeichnung</th>
                                 <th>Hersteller</th>
                                 <th>Modellbezeichnung</th>
                                 <th>Kategorie</th>
@@ -90,6 +91,11 @@
                                     <img src="{% url 'barcode' barcode.barcode %}" alt="Barcode" class="barcode-img">
                                 </td>
                                 <td>{{ barcode.barcode }}</td>
+                                {% if barcode.bezeichnung != None %}
+                                    <td>{{ barcode.bezeichnung }}</td>
+                                {% else %}
+                                    <td></td>
+                                {% endif %}
                                 <td>{{ barcode.geraetetypid.herstellerid }}</td>
                                 <td>{{ barcode.geraetetypid.modellbezeichnung }}</td>
                                 <td>{{ barcode.geraetetypid.kategorie }}</td>

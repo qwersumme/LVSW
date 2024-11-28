@@ -29,7 +29,8 @@ class Barcodeelement(models.Model):
         ('Gesperrt', 'Gesperrt'),
     ]    
     barcode = models.AutoField(db_column='Barcode', primary_key=True)  # Field name made lowercase.
-    geraetetypid = models.ForeignKey('Geraetetyp', models.DO_NOTHING, db_column='GeraetetypID')  # Field name made lowercase.
+    bezeichnung = models.CharField(db_column='Bezeichnung', max_length=100, blank=True, null=True)  # Bezeichnung
+    geraetetypid = models.ForeignKey('Geraetetyp', models.DO_NOTHING, db_column='GeraetetypID', null=True, blank=True)  # geraetetyp
     kaufdatum = models.DateField(db_column='Kaufdatum', blank=True, null=True)  # Field name made lowercase.
     bemerkungen = models.TextField(db_column='Bemerkungen', blank=True, null=True)  # Field name made lowercase.
     istgruppe = models.IntegerField(db_column='IstGruppe', blank=True, null=True)  # Field name made lowercase.

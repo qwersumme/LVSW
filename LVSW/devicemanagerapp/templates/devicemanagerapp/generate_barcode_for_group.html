@@ -26,10 +26,10 @@
         <!-- Formular -->
         <div class="card shadow">
             <div class="card-body">
-                <form method="post">
+            <!-- <form method="post">
                     {% csrf_token %}
                     
-                    <!-- Anzahl der Barcodeelemente -->
+                    
                     <div class="mb-3">
                         <label for="anzahl" class="form-label">Anzahl der Barcodeelemente</label>
                         <input 
@@ -41,12 +41,12 @@
                             min="1">
                     </div>
 
-                    <!-- Dynamisch generiertes Formular -->
+                    
                     <div class="mb-3">
                         {{ form.as_p }}
                     </div>
 
-                    <!-- Buttons -->
+                    
                     <div class="d-flex justify-content-between">
                         <a href="{% url 'geraete_liste' %}" class="btn btn-outline-danger">
                             <i class="bi bi-x-circle"></i> Abbrechen
@@ -54,6 +54,52 @@
                         <button type="submit" class="btn btn-success">
                             <i class="bi bi-check-circle"></i> Barcodeelemente erstellen
                         </button>
+                    </div>
+                </form> -->
+
+                <form method="post" action="{% url 'create_group2' name %}">
+                    {% csrf_token %} 
+                    <input type="hidden" id="GroupName" value="{{name}}">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <table class="table table-striped">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th><input type="checkbox" id="select-all"></th>
+                                        <th>Nummer</th>
+                                        <th>Hersteller</th>
+                                        <th>Modellbezeichnung</th>
+                                        <th>Kategorie</th>
+                                        <th>Kaufdatum</th>
+                                        <th>Zustand</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for barcode in barcodes %}
+                                    <tr>
+                                        <td><input type="checkbox" name="selected_barcodes" value="{{ barcode.barcode }}"></td>
+                                        <td>{{ barcode.barcode }}</td>
+                                        <td>{{ barcode.geraetetypid.herstellerid }}</td>
+                                        <td>{{ barcode.geraetetypid.modellbezeichnung }}</td>
+                                        <td>{{ barcode.geraetetypid.kategorie }}</td> 
+                                        <td>{{ barcode.kaufdatum|date:"d.m.Y" }}</td>
+                                        <td>{{ barcode.zustand }}</td>
+                                        <td>
+                                           <!-- <a href="{% url 'barcode_details' barcode.barcode %}" class="btn btn-sm btn-outline-info">
+                                                <i class="bi bi-info-circle"></i>
+                                            </a> -->
+                                            
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="7" class="text-center text-muted">Keine Barcodes gefunden.</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Ausgewählte anzeigen</button>
                     </div>
                 </form>
             </div>

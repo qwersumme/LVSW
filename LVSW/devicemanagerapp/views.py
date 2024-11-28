@@ -5,10 +5,11 @@ from django.urls import reverse
 from .forms import HerstellerForm, GeraetetypForm, BarcodeelementForm, ZustandSelectionForm, BarcodeSingleInputForm, GruppeForm, GruppenErstellForm
 #from .forms import *
 from .models import Hersteller_view, Geraetetyp, Hersteller, Barcodeelement, Gruppe
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from io import BytesIO
 import barcode
 from barcode.writer import ImageWriter
+from datetime import date
 
 # Create your views here.
 
@@ -162,6 +163,14 @@ def barcodes_liste(request):
 
     return render(request, 'devicemanagerapp/barcodes_liste.html', {'barcodes': barcodes, 'query': query})
 
+def barcode_ajax_search(request):
+    query = request.GET.get('q', '')  # Hole die Suchanfrage
+    results = Barcodeelement.objects.filter(barcode__icontains=query).values(
+        'barcode', 'geraetetypid__herstellerid', 'geraetetypid__modellbezeichnung', 'zustand'
+    )
+    return JsonResponse(list(results), safe=False)  # JSON-Antwort mit den Ergebnissen
+
+
 
 def barcode_details(request, barcode_id):
     # Barcode-Element basierend auf der ID abrufen
@@ -288,18 +297,44 @@ def gruppe_erstellen(request):
     return render(request, 'devicemanagerapp/gruppe_erstellen.html')
 
 def generate_barcode_for_group(request, name):
+    barcodes = Barcodeelement.objects.all()
 
     if request.method == 'POST':
         form = GruppeForm(request.POST)
         if form.is_valid():
-            barcode = form.save(commit = False)
-            barcode.name = name # name aus URL übernehmen
-            barcode.save()
-            return redirect('create_group2', name=name)
+            gruppen_barcode_element = Barcodeelement.objects.create(
+                bezeichnung=name,  # Du kannst hier eine sinnvolle Bezeichnung setzen
+                istgruppe=1,  # Setze `istgruppe` auf 1 für Gruppenbarcodes
+                zustand='Frei',  # Optional: Standardzustand
+                kaufdatum=date.today(),  # Optional: Heutiges Datum
+                bemerkungen='Automatisch erstellter Gruppenbarcode'
+            )
+
+            # Barcodes aus dem Formular holen
+            barcode_list = form.cleaned_data['barcodes']  # Erwartet eine Liste von Barcodes
+
+            # Erstelle Einträge in der `Gruppe`-Tabelle
+            for barcode in barcode_list:
+                barcode_element = Barcodeelement.objects.get(barcode=barcode)
+                Gruppe.objects.create(
+                    gruppen_barcode=gruppen_barcode_element,
+                    barcode=barcode_element
+                )
+
+            # Erfolgsnachricht und Weiterleitung
+            messages.success(request, "Gruppe erfolgreich erstellt!")
+            return redirect('create_group1')
+
+#    if request.method == 'POST':
+#        form = GruppeForm(request.POST)
+#        if form.is_valid():
+#            barcode = form.save(commit = False)
+#            barcode.name = name # name aus URL übernehmen
+#            barcode.save()
+#            return redirect('create_group2', name=name)
     else:
         form = GruppeForm()
-
-    return render(request, 'devicemanagerapp/generate_barcode_for_group.html', {'form':form, 'name':name})
+    return render(request, 'devicemanagerapp/generate_barcode_for_group.html', {'form':form, 'name':name, 'barcodes':barcodes})
 
     # TODO
     # geraetetyp = get_object_or_404(Geraetetyp, geraetetypid=geraetetypid)

@@ -336,6 +336,22 @@ def generate_barcode_for_group(request, name):
         form = GruppeForm()
     return render(request, 'devicemanagerapp/generate_barcode_for_group.html', {'form':form, 'name':name, 'barcodes':barcodes})
 
+
+def group_list(request):
+    query = request.GET.get('q', '')  # Suchparameter aus der URL abrufen
+
+    if query:
+        # Suche in Barcode, Modellbezeichnung und Hersteller
+        barcodes = Barcodeelement.objects.filter(
+            Q(barcode__icontains=query) |
+            Q(bezeichnung__icontains=query)
+        ).order_by('barcode')
+    else:
+        # Ohne Suchbegriff alle Barcodes laden
+        barcodes = Barcodeelement.objects.select_related('geraetetypid').order_by('barcode')
+
+    return render(request, 'devicemanagerapp/group_list.html', {'barcodes': barcodes, 'query': query})
+
     # TODO
     # geraetetyp = get_object_or_404(Geraetetyp, geraetetypid=geraetetypid)
 

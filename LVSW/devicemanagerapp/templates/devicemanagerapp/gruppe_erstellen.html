@@ -6,13 +6,24 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
+    <div class="container mt-3">
+        {% include 'snippets/breadcrumbs.html' %}
+        {% block content %}
+        {% endblock %}
+    </div>
     <div class="container">
         <!-- Zurück-Button -->
         {% if previous_url %}
+        <div class="btn-group" role="group">
             <a href="{% url 'suche_hersteller'%}" class="btn btn-outline-secondary mt-3">Zurück</a>
+            <a href="{% url 'group_list'%}" class="btn btn-outline-secondary mt-3">Gruppenliste</a>
             <!-- <a href="{{ previous_url }}" class="btn btn-outline-secondary mt-3">Zurück</a> -->
+        </div>
         {% else %}
+        <div class="btn-group" role="group">
             <a href="{% url 'mainindex' %}" class="btn btn-outline-secondary mt-3">Startseite</a>
+            <a href="{% url 'group_list'%}" class="btn btn-outline-secondary mt-3">Gruppenliste</a>
+        </div>
         {% endif %}
 
         <h1 class="mt-5">Neue Gruppe erstellen</h1>
@@ -23,6 +34,7 @@
                 </div>
             {% endfor %}
         {% endif %}
+
         <!--<form method="post">
             {% csrf_token %}
             {{ form.name.label_tag }}

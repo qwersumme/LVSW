@@ -1,0 +1,14 @@
+<!-- templates/snippets/breadcrumbs.html -->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        {% for crumb in request.breadcrumbs %}
+            {% if not forloop.last %}
+                <li class="breadcrumb-item">
+                    <a href="{{ crumb.url }}">{{ crumb.name|capfirst }}</a>
+                </li>
+            {% else %}
+                <li class="breadcrumb-item active" aria-current="page">{{ crumb.name|capfirst }}</li>
+            {% endif %}
+        {% endfor %}
+    </ol>
+</nav>

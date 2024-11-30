@@ -74,7 +74,6 @@
                                 <th><input type="checkbox" id="select-all"></th>
                                 <th>Barcode</th>
                                 <th>Nummer</th>
-                                <th>Bezeichnung</th>
                                 <th>Hersteller</th>
                                 <th>Modellbezeichnung</th>
                                 <th>Kategorie</th>
@@ -85,17 +84,13 @@
                         </thead>
                         <tbody>
                             {% for barcode in barcodes %}
+                            {% if barcode.istgruppe == 0 %}
                             <tr>
                                 <td><input type="checkbox" name="selected_barcodes" value="{{ barcode.barcode }}"></td>
                                 <td>
                                     <img src="{% url 'barcode' barcode.barcode %}" alt="Barcode" class="barcode-img">
                                 </td>
                                 <td>{{ barcode.barcode }}</td>
-                                {% if barcode.bezeichnung != None %}
-                                    <td>{{ barcode.bezeichnung }}</td>
-                                {% else %}
-                                    <td></td>
-                                {% endif %}
                                 <td>{{ barcode.geraetetypid.herstellerid }}</td>
                                 <td>{{ barcode.geraetetypid.modellbezeichnung }}</td>
                                 <td>{{ barcode.geraetetypid.kategorie }}</td>
@@ -112,7 +107,9 @@
                                         </button>
                                     </form>
                                 </td>
+                                
                             </tr>
+                            {%endif%}
                             {% empty %}
                             <tr>
                                 <td colspan="7" class="text-center text-muted">Keine Barcodes gefunden.</td>

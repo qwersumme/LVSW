@@ -11,6 +11,8 @@ import barcode
 from barcode.writer import ImageWriter
 from datetime import date
 
+from django.http import JsonResponse
+
 # Create your views here.
 
 
@@ -245,8 +247,6 @@ def update_status(request):
 
 def barcode_view(request, number):
     """
-    Django-Ansicht, die einen Barcode ausgibt.
-
     Args:
         request: HTTP-Anfrage.
         number (str): Nummer, die als Barcode angezeigt wird.
@@ -298,7 +298,7 @@ def gruppe_erstellen(request):
 
 def generate_barcode_for_group(request, name):
     barcodes = Barcodeelement.objects.all()
-
+    # TODO BARCODEERSTELLUNG
     if request.method == 'POST':
         form = GruppeForm(request.POST)
         if form.is_valid():
@@ -351,6 +351,48 @@ def group_list(request):
         barcodes = Barcodeelement.objects.select_related('geraetetypid').order_by('barcode')
 
     return render(request, 'devicemanagerapp/group_list.html', {'barcodes': barcodes, 'query': query})
+
+
+#def group_details(request, barcode_id):
+    # Barcode-Element basierend auf der ID abrufen
+#    barcode = get_object_or_404(Barcodeelement, barcode=barcode_id)
+#    return render(request, 'devicemanagerapp/group_details.html', {'barcode': barcode})
+
+def group_details(request, barcode_id):
+    # Barcode-Element basierend auf der ID abrufen
+    barcode = get_object_or_404(Barcodeelement, barcode=barcode_id)
+
+    # Alle Barcodes, die zu diesem Gruppenbarcode gehören, abrufen
+    gruppen_barcodes = Gruppe.objects.filter(gruppen_barcode=barcode)
+
+    # Barcodes extrahieren
+    verbundene_barcodes = [entry.barcode for entry in gruppen_barcodes]
+
+    return render(request, 'devicemanagerapp/group_details.html', {
+        'barcode': barcode,
+        'verbundene_barcodes': verbundene_barcodes
+    })
+
+
+
+def test_gruppen_view(request):
+    gruppen = Gruppe.objects.all()
+    gruppen_liste = [{'GruppenBarcode': g.gruppen_barcode_id, 'Barcode': g.barcode_id} for g in gruppen]
+
+    # Ausgabe im Terminal prüfen
+    print(gruppen.query)
+
+    # Daten als JSON zurückgeben
+    return JsonResponse(gruppen_liste, safe=False)
+"""
+
+def test_gruppen_view(request):
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT GruppenBarcode, Barcode FROM Gruppen")
+        rows = cursor.fetchall()
+    return JsonResponse(rows, safe=False)
+
+"""
 
     # TODO
     # geraetetyp = get_object_or_404(Geraetetyp, geraetetypid=geraetetypid)

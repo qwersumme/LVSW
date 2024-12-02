@@ -114,20 +114,75 @@ class Geraetetyp(models.Model):
         managed = False
         db_table = 'Geraetetyp'
 
-
+"""
 class Gruppe(models.Model):
     gruppen_barcode = models.ForeignKey(
-        Barcodeelement,
+        'Barcodeelement',
         on_delete=models.CASCADE,
         related_name='gruppen_as_gruppenbarcode',
         db_column='GruppenBarcode'
     )
     barcode = models.ForeignKey(
-        Barcodeelement,
+        'Barcodeelement',
         on_delete=models.CASCADE,
         related_name='gruppen_as_barcode',
         db_column='Barcode'
     )
+    class Meta:
+        db_table = "Gruppen"
+        managed = False
+        constraints = [
+            models.UniqueConstraint(
+                fields=['gruppen_barcode', 'barcode'], name='unique_group_barcode_constraint'
+            )
+        ]
+
+"""
+
+class Gruppe(models.Model):
+    gruppen_barcode = models.ForeignKey(
+        'Barcodeelement',
+        on_delete=models.CASCADE,
+        db_column='GruppenBarcode',
+        related_name='gruppen_as_gruppenbarcode',
+        primary_key=True
+    )
+    barcode = models.ForeignKey(
+        'Barcodeelement',
+        on_delete=models.CASCADE,
+        db_column='Barcode',
+        related_name='gruppen_as_barcode'
+    )
+
+    class Meta:
+        db_table = 'Gruppen'
+        managed = False  # Django erstellt keine Migrationen oder Tabellenänderungen
+        unique_together = ('gruppen_barcode', 'barcode')  # Hinweis auf zusammengesetzten Schlüssel
+
+
+"""
+
+class Gruppe(models.Model):
+    gruppen_barcode = models.ForeignKey(
+        'Barcodeelement',
+        on_delete=models.CASCADE,
+        db_column='GruppenBarcode',
+        related_name='gruppen_as_gruppenbarcode'
+    )
+    barcode = models.ForeignKey(
+        'Barcodeelement',
+        on_delete=models.CASCADE,
+        db_column='Barcode',
+        related_name='gruppen_as_barcode'
+    )
+
+    class Meta:
+        db_table = 'Gruppen'
+        managed = False  # Django soll keine Migrationen für diese Tabelle erstellen
+        unique_together = (('gruppen_barcode', 'barcode'),)
+
+"""
+
 
 
 class Hersteller(models.Model):

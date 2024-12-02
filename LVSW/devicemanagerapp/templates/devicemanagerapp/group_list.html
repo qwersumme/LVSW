@@ -98,15 +98,15 @@
                                 <td>{{ barcode.kaufdatum|date:"d.m.Y" }}</td>
                                 <td>{{ barcode.zustand }}</td>
                                 <td>
-                                    <a href="{% url 'barcode_details' barcode.barcode %}" class="btn btn-sm btn-outline-info">
+                                    <a href="{% url 'group_details' barcode.barcode %}" class="btn btn-sm btn-outline-info">
                                         <i class="bi bi-info-circle"></i>
                                     </a>
-                                    <form method="post" action="{% url 'delete_barcode' barcode.barcode %}" style="display:inline;">
+                                    <!-- <form method="post" action="{% url 'delete_barcode' barcode.barcode %}" style="display:inline;">
                                         {% csrf_token %}
                                         <button type="submit" class="btn btn-sm btn-danger">
                                             <i class="bi bi-trash"></i>
                                         </button>
-                                    </form>
+                                    </form> -->
                                 </td>
                                 
                             </tr>

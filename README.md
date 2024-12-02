@@ -19,7 +19,7 @@ Für die Ausführung des Projekts müssen folgende Python-Bibliotheken installie
 
 python-barcode:
 ```bash
-    pip install python-barcode
+pip install python-barcode
 ```
 
 mysqlclient:

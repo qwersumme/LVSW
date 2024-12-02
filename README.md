@@ -4,7 +4,28 @@
 
 Navigiere in den Unterordner
 ```
-/LVSW/LVSW/
+cd /LVSW/LVSW/
+
+LVSW
+├── DatabaseBackup
+├── LVSW
+| ├── bin
+| ├── customermanagementapp
+| ├── devicemanagerapp
+| ├── eventmanagerapp
+| ├── include
+| ├── lib
+| ├── lib64
+| ├── LVSW
+| ├── middleware
+| ├── rentalapp
+| ├── static
+| ├── templates
+| ├── db.sqlite3
+| ├── manage.py (<- Das ist die Datei die verwendet werden muss)
+| ├── pyvenv.cfg
+README.md
+
 ```
 
 Um das Django-Projekt lokal auszuführen, verwende den folgenden Befehl:

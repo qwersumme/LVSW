@@ -18,8 +18,9 @@ python manage.py runserver 0.0.0.0:8000
 Für die Ausführung des Projekts müssen folgende Python-Bibliotheken installiert werden:
 
 python-barcode: Installiere die Bibliothek mit dem Befehl:
+```bash
     pip install python-barcode
-
+```
 
 mysqlclient: Installiere die Bibliothek mit dem Befehl:
 ```bash

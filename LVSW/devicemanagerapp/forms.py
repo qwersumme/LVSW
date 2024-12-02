@@ -132,6 +132,7 @@ class GruppeForm(forms.Form):
         label="Barcodes zur Gruppe hinzufügen",
         widget=forms.CheckboxSelectMultiple
     )
+    
 
 class GruppenErstellForm(forms.Form):
     name = forms.CharField(

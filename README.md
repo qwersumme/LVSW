@@ -2,6 +2,11 @@
 
 ### Projekt ausführen
 
+Navigiere in den Unterordner
+```
+/LVSW/LVSW/
+```
+
 Um das Django-Projekt lokal auszuführen, verwende den folgenden Befehl:
 
 ```bash

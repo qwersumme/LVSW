@@ -25,7 +25,7 @@ COPY LVSW/ /app/
 # Set environment variables from build arguments
 ARG DB_NAME
 ARG DB_USER
-ARG DB_PASSWORD
+ARG DB_PW
 ARG DB_HOST
 ARG DB_PORT
 

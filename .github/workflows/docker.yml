@@ -22,5 +22,7 @@ jobs:
     - name: Build and Push Docker Image
       uses: docker/build-push-action@v3
       with:
+        context: .
+        file: LVSW/Dockerfile
         push: true
         tags: qwersumme/lvsw:latest

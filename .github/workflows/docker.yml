@@ -7,7 +7,6 @@ on:
 
 jobs:
   build:
-    if: contains(github.event.head_commit.message, 'build_lvsw')
     runs-on: ubuntu-latest
 
     steps:
@@ -21,13 +20,14 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build and Push Docker Image
+      if: contains(github.event.head_commit.message, 'build_lvsw') # Place 'if' at step level
       uses: docker/build-push-action@v3
       with:
         context: .
         file: LVSW/Dockerfile
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/lvsw:latest
-        build-args: # Übergebe die Datenbankdaten als Build-Argumente
+        build-args: # Pass the database credentials as build arguments
           DB_NAME: ${{ secrets.DB_NAME }}
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}

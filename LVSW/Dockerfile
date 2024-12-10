@@ -13,13 +13,13 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean
 
 # Abhängigkeiten kopieren
-COPY requirements.txt /app/
+COPY LVSW/requirements.txt /app/
 
 # Python-Abhängigkeiten installieren
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Projektcode kopieren
-COPY . /app/
+COPY LVSW/ /app/
 
 # Umgebungsvariablen setzen
 ENV PYTHONUNBUFFERED=1

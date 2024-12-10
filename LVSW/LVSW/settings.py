@@ -102,17 +102,6 @@ WSGI_APPLICATION = 'LVSW.wsgi.application'
 #    }
 #}
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql',  # Je nach deiner Datenbank (z. B. mysql, postgresql, sqlite3)
-#        'NAME': 'LVDB2',
-#        'USER': 'LVDB2Admin',
-#        'PASSWORD': '#LVSWUser2024',
-#        'HOST': '31.47.240.136',  # Oder die IP-Adresse deines Servers
-#        'PORT': '3307',  # Port für MySQL (oder den passenden Port deiner Datenbank)
-#    }
-#}
-
 env = environ.Env()
 environ.Env.read_env(env_file='.env')
 

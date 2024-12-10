@@ -53,6 +53,10 @@ mysqlclient:
 pip install mysqlclient
 ```
 
+builded nur dann wenn 
+build_lvsw im commit enthalten ist
+
+
 ### TODOS
 - Eventmanager
 - Eventortmanager

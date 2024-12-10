@@ -53,9 +53,18 @@ mysqlclient:
 pip install mysqlclient
 ```
 
-builded nur dann wenn 
-build_lvsw im commit enthalten ist
+django-environ
 
+```
+pip install django-environ
+```
+
+--- 
+builded nur dann wenn 
+"build_lvsw" im commit enthalten ist
+
+Außerdem wird eine .env mit den richtigen Dateien zur ausführung benötigt.
+---
 
 ### TODOS
 - Eventmanager

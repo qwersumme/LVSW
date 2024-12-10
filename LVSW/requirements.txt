@@ -1,0 +1,4 @@
+mysqlclient
+python-barcode
+pillow
+django

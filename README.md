@@ -43,12 +43,21 @@ python manage.py runserver 0.0.0.0:8000
 
 Für die Ausführung des Projekts müssen folgende Python-Bibliotheken installiert werden:
 
-python-barcode:
+python-barcode & pillow:
 ```bash
-pip install python-barcode
+pip install python-barcode pillow
 ```
 
 mysqlclient:
 ```bash
 pip install mysqlclient
 ```
+
+### TODOS
+- Eventmanager
+- Eventortmanager
+- Gruppenerstellung
+- Barcodestaten setzen anpassen, damit es ebenfalls mit Gruppen möglich ist
+- Gruppen bearbeiten
+
+- Benutzerverwaltung

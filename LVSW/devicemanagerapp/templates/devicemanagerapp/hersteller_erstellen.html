@@ -7,13 +7,21 @@
 </head>
 <body>
     <div class="container">
-        <!-- Zurück-Button -->
-        {% if previous_url %}
-            <a href="{% url 'suche_hersteller'%}" class="btn btn-outline-secondary mt-3">Zurück</a>
-            <!-- <a href="{{ previous_url }}" class="btn btn-outline-secondary mt-3">Zurück</a> -->
-        {% else %}
-            <a href="{% url 'mainindex' %}" class="btn btn-outline-secondary mt-3">Startseite</a>
-        {% endif %}
+
+        <div class="btn-group mt-3" role="group">
+            <a href="{% url 'mainindex' %}" class="btn btn-outline-secondary">
+                <i class="bi bi-house-door"></i> Startseite
+            </a>
+            <a href="{% url 'barcodes_liste' %}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-back"></i> Barcodeliste
+            </a>
+            <a href="{% url 'geraete_liste' %}" class="btn btn-outline-secondary">
+                Geraeteliste
+            </a>
+            <a href="{% url 'suche_hersteller' %}" class="btn btn-outline-secondary">
+                Herstellerliste
+            </a>
+        </div>
 
         <h1 class="mt-5">Neuen Hersteller erstellen</h1>
         {% if messages %}
@@ -26,7 +34,10 @@
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Erstellen</button>
+            <button type="submit" class="btn btn-success">Erstellen</button>
+            <a href="{% url 'suche_hersteller' %}" class="btn btn-outline-danger">
+                Abbrechen
+            </a>
         </form>
     </div>
 </body>

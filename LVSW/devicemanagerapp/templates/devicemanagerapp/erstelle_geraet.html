@@ -8,13 +8,22 @@
 </head>
 <body>
     <div class="container mt-5">
-        <div class="mt-4 text-left">
-            <a href="{% url 'mainindex' %}" class="btn btn-outline-secondary">Startseite</a>
+        <div class="btn-group mt-3" role="group">
+            <a href="{% url 'mainindex' %}" class="btn btn-outline-secondary">
+                <i class="bi bi-house-door"></i> Startseite
+            </a>
+            <a href="{% url 'barcodes_liste' %}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-back"></i> Barcodeliste
+            </a>
+            <a href="{% url 'geraete_liste' %}" class="btn btn-outline-secondary">
+                Geraeteliste
+            </a>
+            <a href="{% url 'suche_hersteller' %}" class="btn btn-outline-secondary">
+                Herstellerliste
+            </a>
         </div>
-        <div class="card shadow">
-            <div class="card-header bg-primary text-white text-center">
-                <h2>Neues Ger&auml;t erstellen</h2>
-            </div>
+        <div class="card shadow mt-3">
+            <h1 class="mt-5 text-center" >Neues Ger&auml;t erstellen</h1>
             <div class="card-body">
                 <!-- Erfolgsmeldungen -->
                 {% if messages %}

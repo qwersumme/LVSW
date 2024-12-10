@@ -15,11 +15,15 @@
             <div class="col-md-3">
                 <div class="btn-group" role="group">
                     <a href="{% url 'mainindex' %}" class="btn btn-outline-secondary">
-                        <i class="bi bi-house-door"></i> Startseite
+                        Startseite
+                    </a>
+                    <a href="{% url 'barcodes_liste' %}" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-back"></i> Barcodeliste
                     </a>
                     <a href="{% url 'geraete_liste' %}" class="btn btn-outline-secondary">
                         Geraeteliste
                     </a>
+                    
                 </div>
             </div>
             

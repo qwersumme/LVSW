@@ -2,3 +2,4 @@ mysqlclient
 python-barcode
 pillow
 django
+django-environ

@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-import os
+import os, environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -102,14 +102,28 @@ WSGI_APPLICATION = 'LVSW.wsgi.application'
 #    }
 #}
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql',  # Je nach deiner Datenbank (z. B. mysql, postgresql, sqlite3)
+#        'NAME': 'LVDB2',
+#        'USER': 'LVDB2Admin',
+#        'PASSWORD': '#LVSWUser2024',
+#        'HOST': '31.47.240.136',  # Oder die IP-Adresse deines Servers
+#        'PORT': '3307',  # Port für MySQL (oder den passenden Port deiner Datenbank)
+#    }
+#}
+
+env = environ.Env()
+environ.Env.read_env(env_file='.env')
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',  # Je nach deiner Datenbank (z. B. mysql, postgresql, sqlite3)
-        'NAME': 'LVDB2',
-        'USER': 'LVDB2Admin',
-        'PASSWORD': '#LVSWUser2024',
-        'HOST': '31.47.240.136',  # Oder die IP-Adresse deines Servers
-        'PORT': '3307',  # Port für MySQL (oder den passenden Port deiner Datenbank)
+    'default' : {
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PW'),
+        'HOST': env('DB_HOST'), 
+        'PORT': env('DB_Port'),
     }
 }
 

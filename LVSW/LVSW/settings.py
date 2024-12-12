@@ -105,11 +105,24 @@ WSGI_APPLICATION = 'LVSW.wsgi.application'
 env = environ.Env()
 environ.Env.read_env(env_file='.env')
 
+#DATABASES = {
+#    'default' : {
+#        'ENGINE': 'django.db.backends.mysql', 
+#        'HOST': env('DB_HOST'),
+#        'PORT': env('DB_PORT'),
+#        'NAME': env('DB_NAME'),
+#        'USER': env('DB_USER'),
+#        'PASSWORD': env('DB_PW'),
+#         
+#        
+#    }
+#}
+
 DATABASES = {
     'default' : {
         'ENGINE': 'django.db.backends.mysql', 
-        'HOST': env('DB_HOST'),
-        'PORT': env('DB_PORT'),
+        'HOST': '31.47.240.136',
+        'PORT': '3307',
         'NAME': env('DB_NAME'),
         'USER': env('DB_USER'),
         'PASSWORD': env('DB_PW'),
@@ -117,6 +130,8 @@ DATABASES = {
         
     }
 }
+
+
 
 
 # Password validation

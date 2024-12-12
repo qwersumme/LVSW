@@ -121,13 +121,11 @@ environ.Env.read_env(env_file='.env')
 DATABASES = {
     'default' : {
         'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'LVDB2',
+        'USER': 'LVDB2Admin',
+        'PASSWORD': '#LVSWUser2024newPW',
         'HOST': '31.47.240.136',
         'PORT': '3307',
-        'NAME': env('DB_NAME'),
-        'USER': env('DB_USER'),
-        'PASSWORD': env('DB_PW'),
-         
-        
     }
 }
 

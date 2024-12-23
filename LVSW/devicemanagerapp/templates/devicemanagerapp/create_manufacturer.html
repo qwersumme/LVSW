@@ -15,10 +15,10 @@
             <a href="{% url 'barcodes_liste' %}" class="btn btn-outline-secondary">
                 <i class="bi bi-arrow-back"></i> Barcodeliste
             </a>
-            <a href="{% url 'geraete_liste' %}" class="btn btn-outline-secondary">
+            <a href="{% url 'device_list' %}" class="btn btn-outline-secondary">
                 Geraeteliste
             </a>
-            <a href="{% url 'suche_hersteller' %}" class="btn btn-outline-secondary">
+            <a href="{% url 'search_manufacturer' %}" class="btn btn-outline-secondary">
                 Herstellerliste
             </a>
         </div>
@@ -35,7 +35,7 @@
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="btn btn-success">Erstellen</button>
-            <a href="{% url 'suche_hersteller' %}" class="btn btn-outline-danger">
+            <a href="{% url 'search_manufacturer' %}" class="btn btn-outline-danger">
                 Abbrechen
             </a>
         </form>

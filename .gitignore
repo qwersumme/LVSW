@@ -1,0 +1,13 @@
+# Python-bezogene Dateien
+*.pyc
+__pycache__/
+
+# Virtuelle Umgebungen
+env/
+venv/
+
+# Lokale Datenbanken
+db.sqlite3
+
+# Sensible Dateien
+/LVSW/.env

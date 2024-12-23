@@ -20,7 +20,7 @@ def devicemanagerappindex(request):
     return render(request, 'devicemanagerapp/devicemanagerappindex.html')
 
 
-def hersteller_erstellen(request):
+def create_manufacturer(request):
     # Hole die URL der vorherigen Seite, falls verfügbar
     previous_url = request.META.get('HTTP_REFERER', None)
 
@@ -29,24 +29,24 @@ def hersteller_erstellen(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Hersteller wurde erfolgreich erstellt.")
-            return redirect('hersteller_erstellen')  # Weiterleitung nach Erfolg
+            return redirect('create_manufacturer')  # Weiterleitung nach Erfolg
     else:
         form = HerstellerForm()
     
     # Render das Template und übergebe die previous_url
-    return render(request, 'devicemanagerapp/hersteller_erstellen.html', {'form': form, 'previous_url': previous_url})
+    return render(request, 'devicemanagerapp/create_manufacturer.html', {'form': form, 'previous_url': previous_url})
 
 
-def hersteller_liste(request):
+def manufacturer_list(request):
     hersteller = Hersteller_view.objects.all()  # Alle Hersteller aus der Datenbank abrufen
-    return render(request, 'devicemanagerapp/hersteller_liste.html', {'hersteller': hersteller})
+    return render(request, 'devicemanagerapp/manufacturer_list.html', {'hersteller': hersteller})
 
-def suche_hersteller(request):
+def search_manufacturer(request):
     query = request.GET.get('q', '')  # Suchfeld
     hersteller = Hersteller.objects.filter(name__icontains=query).order_by('name')
-    return render(request, 'devicemanagerapp/suche_hersteller.html', {'hersteller': hersteller, 'query': query})
+    return render(request, 'devicemanagerapp/search_manufacturer.html', {'hersteller': hersteller, 'query': query})
 
-def erstelle_geraet(request, hersteller_id):
+def create_device(request, hersteller_id):
     # Hersteller aus der ID in der URL abrufen
     hersteller = get_object_or_404(Hersteller, herstellerid=hersteller_id)
 
@@ -57,14 +57,14 @@ def erstelle_geraet(request, hersteller_id):
             # Hersteller für das Gerät setzen
             geraet.hersteller = hersteller
             geraet.save()
-            return redirect('suche_hersteller')  # Nach dem Speichern zurück zur Suchseite
+            return redirect('search_manufacturer')  # Nach dem Speichern zurück zur Suchseite
     else:
         # Initialisiere das Formular ohne Daten
         form = GeraetetypForm(initial={'herstellerid':hersteller_id})
 
-    return render(request, 'devicemanagerapp/erstelle_geraet.html', {'form': form, 'hersteller': hersteller})
+    return render(request, 'devicemanagerapp/create_device.html', {'form': form, 'hersteller': hersteller})
 
-def geraete_liste(request):
+def device_list(request):
     # Suchfunktion
     query = request.GET.get('q', '')  # Suchparameter aus der URL abrufen
     if query:
@@ -77,7 +77,7 @@ def geraete_liste(request):
     else:
         geraete = Geraetetyp.objects.all().select_related('herstellerid')  # Alle Geräte abrufen
     
-    return render(request, 'devicemanagerapp/geraete_liste.html', {'geraete': geraete, 'query': query})
+    return render(request, 'devicemanagerapp/device_list.html', {'geraete': geraete, 'query': query})
 
 def show_device(request, geraete_id):
     # Gerät basierend auf der Geräte-ID abrufen
@@ -106,7 +106,7 @@ def delete_geraetetyp(request, geraetetypid):
         geraetetyp.delete()
         messages.success(request, f"Gerätetyp {geraetetyp.modellbezeichnung} wurde erfolgreich gelöscht!")
         return redirect('geraete_liste')  # Zurück zur Geräte-Liste
-    return redirect('geraete_liste')
+    return redirect('device_list')
 
 def generate_barcodes(request, geraetetypid):
     # Sicherstellen, dass der Gerätetyp existiert
@@ -137,7 +137,7 @@ def generate_barcodes(request, geraetetypid):
                 barcode.save()
 
             messages.success(request, f"{anzahl} Barcodeelemente erfolgreich erstellt!")
-            return redirect('geraete_liste')  # Weiterleitung zur Geräte-Liste
+            return redirect('device_list')  # Weiterleitung zur Geräte-Liste
         else:
             messages.error(request, "Es gab ein Problem mit den eingegebenen Daten.")
     else:
@@ -148,7 +148,7 @@ def generate_barcodes(request, geraetetypid):
         'geraetetyp': geraetetyp,
     })
 
-def barcodes_liste(request):
+def barcodes_list(request):
     query = request.GET.get('q', '')  # Suchparameter aus der URL abrufen
 
     if query:
@@ -163,7 +163,7 @@ def barcodes_liste(request):
         # Ohne Suchbegriff alle Barcodes laden
         barcodes = Barcodeelement.objects.select_related('geraetetypid').order_by('barcode')
 
-    return render(request, 'devicemanagerapp/barcodes_liste.html', {'barcodes': barcodes, 'query': query})
+    return render(request, 'devicemanagerapp/barcodes_list.html', {'barcodes': barcodes, 'query': query})
 
 def barcode_ajax_search(request):
     query = request.GET.get('q', '')  # Hole die Suchanfrage
@@ -300,6 +300,7 @@ def generate_barcode_for_group(request, name):
     barcodes = Barcodeelement.objects.all()
     # TODO BARCODEERSTELLUNG
     if request.method == 'POST':
+        
         form = GruppeForm(request.POST)
         if form.is_valid():
             gruppen_barcode_element = Barcodeelement.objects.create(

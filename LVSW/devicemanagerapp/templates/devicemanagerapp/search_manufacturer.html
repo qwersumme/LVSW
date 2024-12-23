@@ -20,7 +20,7 @@
                     <a href="{% url 'barcodes_liste' %}" class="btn btn-outline-secondary">
                         <i class="bi bi-arrow-back"></i> Barcodeliste
                     </a>
-                    <a href="{% url 'geraete_liste' %}" class="btn btn-outline-secondary">
+                    <a href="{% url 'device_list' %}" class="btn btn-outline-secondary">
                         Geraeteliste
                     </a>
                     
@@ -36,7 +36,7 @@
             </div>
 
             <div class="col-md-2 text-end">
-                <a href="{% url 'hersteller_erstellen' %}" class="btn btn-outline-primary">+ Hersteller</a>
+                <a href="{% url 'create_manufacturer' %}" class="btn btn-outline-primary">+ Hersteller</a>
             </div>
         </div>
 
@@ -47,7 +47,7 @@
                     {% if h.herstellerid %}
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         {{ h.name }}
-                        <a href="{% url 'erstelle_geraet' h.herstellerid %}" class="btn btn-sm btn-outline-primary">W&auml;hlen</a>
+                        <a href="{% url 'create_device' h.herstellerid %}" class="btn btn-sm btn-outline-primary">W&auml;hlen</a>
                     </li>
                     {% else %}
                     <li class="list-group-item text-danger">!UNGUELTIGER EINTRAG!</li>

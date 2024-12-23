@@ -5,16 +5,17 @@ from . import views
 
 urlpatterns = [
     path('', views.devicemanagerappindex),
-    path('herstellererstellen/', views.hersteller_erstellen, name='hersteller_erstellen'),
-    path('hersteller/', views.hersteller_liste, name='hersteller_liste'),path('suche-hersteller/', views.suche_hersteller, name='suche_hersteller'),
-    path('erstelle-geraet/<int:hersteller_id>/', views.erstelle_geraet, name='erstelle_geraet'),
-    path('suche-hersteller/', views.suche_hersteller, name='suche_hersteller'),
-    path('geraete-liste/', views.geraete_liste, name='geraete_liste'),
+    path('create_manufacturer/', views.create_manufacturer, name='create_manufacturer'),
+    path('manufacturer/', views.manufacturer_list, name='hersteller_liste'),
+    path('search-manufacturer/', views.search_manufacturer, name='search_manufacturer'),
+    path('create-device/<int:hersteller_id>/', views.create_device, name='create_device'),
+    path('search-manufacturer/', views.search_manufacturer, name='search_manufacturer'),
+    path('device-list/', views.device_list, name='device_list'),
     path('delete-geraetetyp/<int:geraetetypid>/', views.delete_geraetetyp, name='delete_geraetetyp'),
     path('show-device/<int:geraete_id>/', views.show_device, name='show_device'),
     path('edit-device/<int:geraete_id>/', views.edit_device, name='edit_device'),
     path('generate-barcodes/<int:geraetetypid>/', views.generate_barcodes, name='generate_barcodes'),
-    path('barcodes-liste/', views.barcodes_liste, name='barcodes_liste'),
+    path('barcodes-list/', views.barcodes_list, name='barcodes_liste'),
     #path('ajax/search/barcodes/', views.barcode_ajax_search, name='ajax_search'), #for later
     path('barcode-details/<int:barcode_id>/', views.barcode_details, name='barcode_details'),
     path('delete-barcode/<int:barcode_id>/', views.delete_barcode, name='delete_barcode'),

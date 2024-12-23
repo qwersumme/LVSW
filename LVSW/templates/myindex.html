@@ -22,7 +22,7 @@
             <h2>Daten Management</h2>
             <div class="row mt-4">
                 <div class="col-md-4">
-                    <a href="{% url 'barcodes_liste' %}" class="btn btn-primary btn-lg btn-block">Barcode</a>
+                    <a href="{% url 'barcodes_list' %}" class="btn btn-primary btn-lg btn-block">Barcode</a>
                 </div>
                 <div class="col-md-4">
                     <a href="{% url 'kunden_liste' %}" class="btn btn-primary btn-lg btn-block">Kunde</a>
@@ -41,51 +41,6 @@
                     <a href="{% url 'select_status' %}" class="btn btn-primary btn-lg btn-block">Barcodestati setzen</a>
                 </div>
             </div> 
-        </section>
-
-        <!-- Debugging Section -->
-        <section class="mb-5">
-            <h2>Debugging</h2>
-            <div class="row mt-5">
-                <!-- Manufacturers Section -->
-                <div class="col-md-3 mb-3">
-                    <h5>Hersteller</h5>
-                    <a href="{% url 'hersteller_liste' %}" class="btn btn-secondary btn-block">Liste</a>
-                    <a href="{% url 'create_manufacturer' %}" class="btn btn-outline-secondary btn-block mt-2">Erstellen</a>
-                </div>
-
-                <!-- Devices Section -->
-                <div class="col-md-3 mb-3">
-                    <h5>Devices</h5>
-                    <a href="{% url 'geraete_liste' %}" class="btn btn-secondary btn-block">Liste</a>
-                    <a href="{% url 'suche_hersteller' %}" class="btn btn-outline-secondary btn-block mt-2">Erstellen</a>
-                </div>
-
-                <!-- Barcodes Section -->
-                <div class="col-md-3 mb-3">
-                    <h5>Barcodes</h5>
-                    <a href="{% url 'barcodes_liste' %}" class="btn btn-secondary btn-block">Liste</a>
-                    <a href="{% url 'generate_barcodes' 2 %}" class="btn btn-outline-secondary btn-block mt-2">Erstellen</a>
-                    <a href="{% url 'select_status' %}" class="btn btn-outline-secondary btn-block mt-2">Status festlegen</a>
-                    
-                    
-                    
-                </div>
-
-                <div class="col-md-3 mb-3">
-                    <h5>Gruppen</h5>
-                    <a href="{% url 'group_list' %}" class="btn btn-secondary btn-block mt-2">Liste</a>
-                    <a href="{% url 'create_group1' %}" class="btn btn-outline-secondary btn-block mt-2">Gruppen anlegen</a>
-
-                </div>
-
-                <!-- Customers Section -->
-                <div class="col-md-3 mb-3">
-                    <h5>Kunden</h5>
-                    <a href="{% url 'kunden_liste' %}" class="btn btn-secondary btn-block">Liste</a>
-                    <a href="{% url 'kunde_erstellen' %}" class="btn btn-outline-secondary btn-block mt-2">Erstellen</a>
-                </div>
-            </div>
         </section>
     </div>
 

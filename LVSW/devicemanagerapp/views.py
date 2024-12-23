@@ -197,7 +197,7 @@ def delete_barcode(request, barcode_id):
     if request.method == 'POST':
         barcode.delete()
         messages.success(request, f"Barcode {barcode_id} wurde erfolgreich gelöscht!")
-        return redirect('barcodes_liste')  # Zurück zur Liste aller Barcodes
+        return redirect('barcodes_list')  # Zurück zur Liste aller Barcodes
     return render(request, 'devicemanagerapp/delete_barcode.html', {'barcode': barcode})
 
 
@@ -296,10 +296,11 @@ def gruppe_erstellen(request):
     # Render das Template und übergebe die previous_url
     return render(request, 'devicemanagerapp/gruppe_erstellen.html')
 
-def generate_barcode_for_group(request, name):
+def device_barcode_for_group(request, name):
     barcodes = Barcodeelement.objects.all()
     # TODO BARCODEERSTELLUNG
     if request.method == 'POST':
+        print("received POST")
         
         form = GruppeForm(request.POST)
         if form.is_valid():
@@ -335,7 +336,7 @@ def generate_barcode_for_group(request, name):
 #            return redirect('create_group2', name=name)
     else:
         form = GruppeForm()
-    return render(request, 'devicemanagerapp/generate_barcode_for_group.html', {'form':form, 'name':name, 'barcodes':barcodes})
+    return render(request, 'devicemanagerapp/device_barcode_for_group.html', {'form':form, 'name':name, 'barcodes':barcodes})
 
 
 def group_list(request):

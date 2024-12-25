@@ -10,4 +10,4 @@ venv/
 db.sqlite3
 
 # Sensible Dateien
-/LVSW/.env
+/LVSW/.envlocal

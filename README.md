@@ -78,5 +78,5 @@ Außerdem wird eine .env mit den richtigen Dateien zur ausführung benötigt.
 ---
 ### Local execution
 
-You will need a .envlocal for local execution of the project where .env is located. 
-.envlocal needs to have7 your 
+You will need a .envlocal for local execution, where .env is located. 
+.envlocal needs to have your database credentials

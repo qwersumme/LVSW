@@ -311,6 +311,7 @@ def device_barcode_for_group(request, name):
                 kaufdatum=date.today(),  # Optional: Heutiges Datum
                 bemerkungen='Automatisch erstellter Gruppenbarcode'
             )
+            print form.name
 
             # Barcodes aus dem Formular holen
             barcode_list = form.cleaned_data['barcodes']  # Erwartet eine Liste von Barcodes

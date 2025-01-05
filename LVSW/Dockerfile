@@ -23,18 +23,6 @@ COPY LVSW/ /app/
 
 
 # Set environment variables from build arguments
-ARG DB_NAME
-ARG DB_USER
-ARG DB_PW
-ARG DB_HOST
-ARG DB_PORT
-
-# Pass build arguments to environment variables
-ENV DB_NAME=$DB_NAME
-ENV DB_USER=$DB_USER
-ENV DB_PW=$DB_PW
-ENV DB_HOST=$DB_HOST
-ENV DB_PORT=$DB_PORT
 ENV PYTHONUNBUFFERED=1
 
 # Port für die Anwendung freigeben
